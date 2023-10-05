@@ -48,6 +48,8 @@
     "@tarojs/runtime": "3.6.17",
     "@tarojs/shared": "3.6.17",
     "@tarojs/taro": "3.6.17",
+    "@vue/cli": "^5.0.8",
+    "@vue/cli-plugin-eslint": "^5.0.8",
     "pinia": "^2.0.10",
     "vue": "^3.2.24"
   },
