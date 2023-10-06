@@ -26,6 +26,9 @@ async function login(){
   const res = await loginByAccount(data);
   if(res) {
     console.log("login success");
+    await Taro.navigateTo({
+      url: "/pages/scanTeam/index"
+    });
   }
   else await Taro.showModal({
     title: "登录失败!",
@@ -43,6 +46,9 @@ onMounted(async () => {
       content: "登录过期请再次登录!"
     });
   } else {
+    await Taro.navigateTo({
+      url: "/pages/scanTeam/index"
+    });
     console.log("login by mounted");
   }
   return;
