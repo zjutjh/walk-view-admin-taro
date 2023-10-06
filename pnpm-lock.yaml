@@ -56,6 +56,9 @@ dependencies:
   pinia:
     specifier: ^2.0.10
     version: registry.npmmirror.com/pinia@2.0.10(typescript@4.1.2)(vue@3.2.24)
+  pinia-plugin-persistedstate:
+    specifier: ^3.2.0
+    version: registry.npmmirror.com/pinia-plugin-persistedstate@3.2.0(pinia@2.0.10)
   vue:
     specifier: ^3.2.24
     version: registry.npmmirror.com/vue@3.2.24
@@ -4117,7 +4120,7 @@ packages:
 
   registry.npmmirror.com/@tarojs/api@3.6.17:
     resolution: {integrity: sha512-16IDRN0uoBuUhFt5LqrzNKc9ZrzxSplsMN0tuYiIenlqAxsNaPvAVz+93TIWDg14uabGN5JeWKMJs+Ng51rxQw==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@tarojs/api/-/api-3.6.17.tgz}
-    name: '@tarojs/api'
+    name: '@tarojs/apis'
     version: 3.6.17
     dependencies:
       '@babel/runtime': registry.npmmirror.com/@babel/runtime@7.23.1
@@ -4720,7 +4723,7 @@ packages:
     name: '@tarojs/taro-h5'
     version: 3.6.17
     dependencies:
-      '@tarojs/api': registry.npmmirror.com/@tarojs/api@3.6.17
+      '@tarojs/api': registry.npmmirror.com/@tarojs/apis@3.6.17
       '@tarojs/components': registry.npmmirror.com/@tarojs/components@3.6.17(postcss@8.4.18)(vue@3.2.24)
       '@tarojs/router': registry.npmmirror.com/@tarojs/router@3.6.17(postcss@8.4.18)(vue@3.2.24)
       '@tarojs/runtime': registry.npmmirror.com/@tarojs/runtime@3.6.17
@@ -4784,7 +4787,7 @@ packages:
       vue:
         optional: true
     dependencies:
-      '@tarojs/api': registry.npmmirror.com/@tarojs/api@3.6.17
+      '@tarojs/api': registry.npmmirror.com/@tarojs/apis@3.6.17
       '@tarojs/runtime': registry.npmmirror.com/@tarojs/runtime@3.6.17
       postcss: registry.npmmirror.com/postcss@8.4.18
       vue: registry.npmmirror.com/vue@3.2.24
@@ -4812,7 +4815,7 @@ packages:
       vue:
         optional: true
     dependencies:
-      '@tarojs/api': registry.npmmirror.com/@tarojs/api@3.6.17
+      '@tarojs/api': registry.npmmirror.com/@tarojs/apis@3.6.17
       '@tarojs/runtime': registry.npmmirror.com/@tarojs/runtime@3.6.17
       postcss: registry.npmmirror.com/postcss@8.4.31
       vue: registry.npmmirror.com/vue@3.2.24
@@ -5068,7 +5071,7 @@ packages:
 
   registry.npmmirror.com/@types/connect-history-api-fallback@1.5.1:
     resolution: {integrity: sha512-iaQslNbARe8fctL5Lk+DsmgWOM83lM+7FzP0eQUJs1jd3kBE8NWqBTIT2S8SqQOJjxvt2eyIjpOuYeRXq2AdMw==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@types/connect-history-api-fallback/-/connect-history-api-fallback-1.5.1.tgz}
-    name: '@types/connect-history-api-fallback'
+    name: '@types/connect-history-apis-fallback'
     version: 1.5.1
     dependencies:
       '@types/express-serve-static-core': registry.npmmirror.com/@types/express-serve-static-core@4.17.37
@@ -5471,7 +5474,7 @@ packages:
       ignore: registry.npmmirror.com/ignore@5.2.4
       natural-compare: registry.npmmirror.com/natural-compare@1.4.0
       semver: registry.npmmirror.com/semver@7.5.4
-      ts-api-utils: registry.npmmirror.com/ts-api-utils@1.0.3(typescript@4.1.2)
+      ts-api-utils: registry.npmmirror.com/ts-apis-utils@1.0.3(typescript@4.1.2)
       typescript: registry.npmmirror.com/typescript@4.1.2
     transitivePeerDependencies:
       - supports-color
@@ -5561,7 +5564,7 @@ packages:
       '@typescript-eslint/utils': registry.npmmirror.com/@typescript-eslint/utils@6.7.4(eslint@8.12.0)(typescript@4.1.2)
       debug: registry.npmmirror.com/debug@4.3.4
       eslint: registry.npmmirror.com/eslint@8.12.0
-      ts-api-utils: registry.npmmirror.com/ts-api-utils@1.0.3(typescript@4.1.2)
+      ts-api-utils: registry.npmmirror.com/ts-apis-utils@1.0.3(typescript@4.1.2)
       typescript: registry.npmmirror.com/typescript@4.1.2
     transitivePeerDependencies:
       - supports-color
@@ -5623,7 +5626,7 @@ packages:
       globby: registry.npmmirror.com/globby@11.1.0
       is-glob: registry.npmmirror.com/is-glob@4.0.3
       semver: registry.npmmirror.com/semver@7.5.4
-      ts-api-utils: registry.npmmirror.com/ts-api-utils@1.0.3(typescript@4.1.2)
+      ts-api-utils: registry.npmmirror.com/ts-apis-utils@1.0.3(typescript@4.1.2)
       typescript: registry.npmmirror.com/typescript@4.1.2
     transitivePeerDependencies:
       - supports-color
@@ -5957,7 +5960,7 @@ packages:
       clone: registry.npmmirror.com/clone@2.1.2
       deepmerge: registry.npmmirror.com/deepmerge@4.3.1
       express: registry.npmmirror.com/express@4.18.2
-      express-history-api-fallback: registry.npmmirror.com/express-history-api-fallback@2.2.1
+      express-history-api-fallback: registry.npmmirror.com/express-history-apis-fallback@2.2.1
       fkill: registry.npmmirror.com/fkill@7.2.1
       fs-extra: registry.npmmirror.com/fs-extra@9.1.0
       globby: registry.npmmirror.com/globby@11.1.0
@@ -6310,7 +6313,7 @@ packages:
 
   registry.npmmirror.com/@vue/devtools-api@6.5.0:
     resolution: {integrity: sha512-o9KfBeaBmCKl10usN4crU53fYtC1r7jJwdGKjPT24t348rHxgfpZ0xL3Xm/gLUYnc0oTp8LAmrxOeLyu6tbk2Q==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@vue/devtools-api/-/devtools-api-6.5.0.tgz}
-    name: '@vue/devtools-api'
+    name: '@vue/devtools-apis'
     version: 6.5.0
     dev: false
 
@@ -6410,7 +6413,7 @@ packages:
 
   registry.npmmirror.com/@webassemblyjs/helper-api-error@1.11.1:
     resolution: {integrity: sha512-RlhS8CBCXfRUR/cwo2ho9bkheSXG0+NwooXcc3PAILALf2QLdFyj7KGsKRbVc95hZnhnERon4kW/D3SZpp6Tcg==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@webassemblyjs/helper-api-error/-/helper-api-error-1.11.1.tgz}
-    name: '@webassemblyjs/helper-api-error'
+    name: '@webassemblyjs/helper-apis-error'
     version: 1.11.1
 
   registry.npmmirror.com/@webassemblyjs/helper-buffer@1.11.1:
@@ -6424,7 +6427,7 @@ packages:
     version: 1.11.1
     dependencies:
       '@webassemblyjs/floating-point-hex-parser': registry.npmmirror.com/@webassemblyjs/floating-point-hex-parser@1.11.1
-      '@webassemblyjs/helper-api-error': registry.npmmirror.com/@webassemblyjs/helper-api-error@1.11.1
+      '@webassemblyjs/helper-api-error': registry.npmmirror.com/@webassemblyjs/helper-apis-error@1.11.1
       '@xtuc/long': registry.npmmirror.com/@xtuc/long@4.2.2
 
   registry.npmmirror.com/@webassemblyjs/helper-wasm-bytecode@1.11.1:
@@ -6502,7 +6505,7 @@ packages:
     version: 1.11.1
     dependencies:
       '@webassemblyjs/ast': registry.npmmirror.com/@webassemblyjs/ast@1.11.1
-      '@webassemblyjs/helper-api-error': registry.npmmirror.com/@webassemblyjs/helper-api-error@1.11.1
+      '@webassemblyjs/helper-api-error': registry.npmmirror.com/@webassemblyjs/helper-apis-error@1.11.1
       '@webassemblyjs/helper-wasm-bytecode': registry.npmmirror.com/@webassemblyjs/helper-wasm-bytecode@1.11.1
       '@webassemblyjs/ieee754': registry.npmmirror.com/@webassemblyjs/ieee754@1.11.1
       '@webassemblyjs/leb128': registry.npmmirror.com/@webassemblyjs/leb128@1.11.1
@@ -7369,7 +7372,7 @@ packages:
 
   registry.npmmirror.com/babel-plugin-transform-imports-api@1.0.0:
     resolution: {integrity: sha512-EtPFtwUFwXy4HyRwXiR7dCijk2b1dd12bVs39oY8aMZUnypFEMrctGX6/YrhQzhCPFweV7NTPhc+fD4zItWzUA==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/babel-plugin-transform-imports-api/-/babel-plugin-transform-imports-api-1.0.0.tgz}
-    name: babel-plugin-transform-imports-api
+    name: babel-plugin-transform-imports-apis
     version: 1.0.0
     dependencies:
       is-invalid-path: registry.npmmirror.com/is-invalid-path@1.0.2
@@ -7405,7 +7408,7 @@ packages:
       '@tarojs/shared': registry.npmmirror.com/@tarojs/shared@3.6.17
       babel-plugin-dynamic-import-node: registry.npmmirror.com/babel-plugin-dynamic-import-node@2.3.3
       babel-plugin-minify-dead-code-elimination: registry.npmmirror.com/babel-plugin-minify-dead-code-elimination@0.5.2
-      babel-plugin-transform-imports-api: registry.npmmirror.com/babel-plugin-transform-imports-api@1.0.0
+      babel-plugin-transform-imports-api: registry.npmmirror.com/babel-plugin-transform-imports-apis@1.0.0
       core-js: registry.npmmirror.com/core-js@3.33.0
       lodash: registry.npmmirror.com/lodash@4.17.21
       metro-react-native-babel-preset: registry.npmmirror.com/metro-react-native-babel-preset@0.72.4(@babel/core@7.8.0)
@@ -7861,7 +7864,7 @@ packages:
 
   registry.npmmirror.com/caniuse-api@3.0.0:
     resolution: {integrity: sha512-bsTwuIg/BZZK/vreVTYYbSWoe2F+71P7K5QGEX+pT250DZbfU1MQ5prOKpPR+LL6uWKK3KMwMCAS74QB3Um1uw==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/caniuse-api/-/caniuse-api-3.0.0.tgz}
-    name: caniuse-api
+    name: caniuse-apis
     version: 3.0.0
     dependencies:
       browserslist: registry.npmmirror.com/browserslist@4.22.1
@@ -8395,7 +8398,7 @@ packages:
 
   registry.npmmirror.com/connect-history-api-fallback@2.0.0:
     resolution: {integrity: sha512-U73+6lQFmfiNPrYbXqr6kZ1i1wiRqXnp2nhMsINseWXO8lDau0LGEffJ8kQi4EjLZympVgRdvqjAgiZ1tgzDDA==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/connect-history-api-fallback/-/connect-history-api-fallback-2.0.0.tgz}
-    name: connect-history-api-fallback
+    name: connect-history-apis-fallback
     version: 2.0.0
     engines: {node: '>=0.8'}
 
@@ -10766,7 +10769,7 @@ packages:
 
   registry.npmmirror.com/express-history-api-fallback@2.2.1:
     resolution: {integrity: sha512-swxwm3aP8vrOOvlzOdZvHlSZtJGwHKaY94J6AkrAgCTmcbko3IRwbkhLv2wKV1WeZhjxX58aLMpP3atDBnKuZg==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/express-history-api-fallback/-/express-history-api-fallback-2.2.1.tgz}
-    name: express-history-api-fallback
+    name: express-history-apis-fallback
     version: 2.2.1
     dev: false
 
@@ -13101,7 +13104,7 @@ packages:
     version: 1.4.9
     dependencies:
       expr-parser: registry.npmmirror.com/expr-parser@1.0.0
-      miniprogram-api-typings: registry.npmmirror.com/miniprogram-api-typings@3.12.0
+      miniprogram-api-typings: registry.npmmirror.com/miniprogram-apis-typings@3.12.0
       miniprogram-exparser: registry.npmmirror.com/miniprogram-exparser@2.29.1
     dev: true
 
@@ -14558,7 +14561,7 @@ packages:
 
   registry.npmmirror.com/miniprogram-api-typings@3.12.0:
     resolution: {integrity: sha512-tE0zjq+3bFEgUROzCjXTdtLY+FmqiTX4kZWXc8bCC7M9wSHCriBz+ga1E2i1PcI+DQJoz2cyK8Cv2exJv6XEzA==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/miniprogram-api-typings/-/miniprogram-api-typings-3.12.0.tgz}
-    name: miniprogram-api-typings
+    name: miniprogram-apis-typings
     version: 3.12.0
     dev: true
 
@@ -15588,6 +15591,17 @@ packages:
     version: 4.0.1
     engines: {node: '>=6'}
 
+  registry.npmmirror.com/pinia-plugin-persistedstate@3.2.0(pinia@2.0.10):
+    resolution: {integrity: sha512-tZbNGf2vjAQcIm7alK40sE51Qu/m9oWr+rEgNm/2AWr1huFxj72CjvpQcIQzMknDBJEkQznCLAGtJTIcLKrKdw==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/pinia-plugin-persistedstate/-/pinia-plugin-persistedstate-3.2.0.tgz}
+    id: registry.npmmirror.com/pinia-plugin-persistedstate/3.2.0
+    name: pinia-plugin-persistedstate
+    version: 3.2.0
+    peerDependencies:
+      pinia: ^2.0.0
+    dependencies:
+      pinia: registry.npmmirror.com/pinia@2.0.10(typescript@4.1.2)(vue@3.2.24)
+    dev: false
+
   registry.npmmirror.com/pinia@2.0.10(typescript@4.1.2)(vue@3.2.24):
     resolution: {integrity: sha512-Gq8qCjWkz1SZSCrHqGg/k+wbeu35R7y44eDXFHJlBr5gZ8ooAf6bAHLt5zpAVIDptv09h0+XLZpy9dMHbwvXWw==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/pinia/-/pinia-2.0.10.tgz}
     id: registry.npmmirror.com/pinia/2.0.10
@@ -15603,7 +15617,7 @@ packages:
       typescript:
         optional: true
     dependencies:
-      '@vue/devtools-api': registry.npmmirror.com/@vue/devtools-api@6.5.0
+      '@vue/devtools-api': registry.npmmirror.com/@vue/devtools-apis@6.5.0
       typescript: registry.npmmirror.com/typescript@4.1.2
       vue: registry.npmmirror.com/vue@3.2.24
       vue-demi: registry.npmmirror.com/vue-demi@0.14.6(vue@3.2.24)
@@ -15716,7 +15730,7 @@ packages:
       postcss: ^8.2.15
     dependencies:
       browserslist: registry.npmmirror.com/browserslist@4.22.1
-      caniuse-api: registry.npmmirror.com/caniuse-api@3.0.0
+      caniuse-api: registry.npmmirror.com/caniuse-apis@3.0.0
       colord: registry.npmmirror.com/colord@2.9.3
       postcss: registry.npmmirror.com/postcss@8.4.18
       postcss-value-parser: registry.npmmirror.com/postcss-value-parser@4.2.0
@@ -15731,7 +15745,7 @@ packages:
       postcss: ^8.2.15
     dependencies:
       browserslist: registry.npmmirror.com/browserslist@4.22.1
-      caniuse-api: registry.npmmirror.com/caniuse-api@3.0.0
+      caniuse-api: registry.npmmirror.com/caniuse-apis@3.0.0
       colord: registry.npmmirror.com/colord@2.9.3
       postcss: registry.npmmirror.com/postcss@8.4.31
       postcss-value-parser: registry.npmmirror.com/postcss-value-parser@4.2.0
@@ -15999,7 +16013,7 @@ packages:
       postcss: ^8.2.15
     dependencies:
       browserslist: registry.npmmirror.com/browserslist@4.22.1
-      caniuse-api: registry.npmmirror.com/caniuse-api@3.0.0
+      caniuse-api: registry.npmmirror.com/caniuse-apis@3.0.0
       cssnano-utils: registry.npmmirror.com/cssnano-utils@3.1.0(postcss@8.4.18)
       postcss: registry.npmmirror.com/postcss@8.4.18
       postcss-selector-parser: registry.npmmirror.com/postcss-selector-parser@6.0.13
@@ -16014,7 +16028,7 @@ packages:
       postcss: ^8.2.15
     dependencies:
       browserslist: registry.npmmirror.com/browserslist@4.22.1
-      caniuse-api: registry.npmmirror.com/caniuse-api@3.0.0
+      caniuse-api: registry.npmmirror.com/caniuse-apis@3.0.0
       cssnano-utils: registry.npmmirror.com/cssnano-utils@3.1.0(postcss@8.4.31)
       postcss: registry.npmmirror.com/postcss@8.4.31
       postcss-selector-parser: registry.npmmirror.com/postcss-selector-parser@6.0.13
@@ -16514,7 +16528,7 @@ packages:
       postcss: ^8.2.15
     dependencies:
       browserslist: registry.npmmirror.com/browserslist@4.22.1
-      caniuse-api: registry.npmmirror.com/caniuse-api@3.0.0
+      caniuse-api: registry.npmmirror.com/caniuse-apis@3.0.0
       postcss: registry.npmmirror.com/postcss@8.4.18
 
   registry.npmmirror.com/postcss-reduce-initial@5.1.2(postcss@8.4.31):
@@ -16527,7 +16541,7 @@ packages:
       postcss: ^8.2.15
     dependencies:
       browserslist: registry.npmmirror.com/browserslist@4.22.1
-      caniuse-api: registry.npmmirror.com/caniuse-api@3.0.0
+      caniuse-api: registry.npmmirror.com/caniuse-apis@3.0.0
       postcss: registry.npmmirror.com/postcss@8.4.31
     dev: false
 
@@ -19211,8 +19225,8 @@ packages:
 
   registry.npmmirror.com/ts-api-utils@1.0.3(typescript@4.1.2):
     resolution: {integrity: sha512-wNMeqtMz5NtwpT/UZGY5alT+VoKdSsOOP/kqHFcUW1P/VRhH2wJ48+DN2WwUliNbQ976ETwDL0Ifd2VVvgonvg==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/ts-api-utils/-/ts-api-utils-1.0.3.tgz}
-    id: registry.npmmirror.com/ts-api-utils/1.0.3
-    name: ts-api-utils
+    id: registry.npmmirror.com/ts-apis-utils/1.0.3
+    name: ts-apis-utils
     version: 1.0.3
     engines: {node: '>=16.13.0'}
     peerDependencies:
@@ -19908,7 +19922,7 @@ packages:
 
   registry.npmmirror.com/vue-hot-reload-api@2.3.4:
     resolution: {integrity: sha512-BXq3jwIagosjgNVae6tkHzzIk6a8MHFtzAdwhnV5VlvPTFxDCvIttgSiHWjdGoTJvXtmRu5HacExfdarRcFhog==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/vue-hot-reload-api/-/vue-hot-reload-api-2.3.4.tgz}
-    name: vue-hot-reload-api
+    name: vue-hot-reload-apis
     version: 2.3.4
 
   registry.npmmirror.com/vue-loader@15.10.2(@vue/compiler-sfc@3.0.0)(css-loader@6.8.1)(lodash@4.17.21)(webpack@5.78.0):
@@ -19938,7 +19952,7 @@ packages:
       css-loader: registry.npmmirror.com/css-loader@6.8.1(webpack@5.78.0)
       hash-sum: registry.npmmirror.com/hash-sum@1.0.2
       loader-utils: registry.npmmirror.com/loader-utils@1.4.2
-      vue-hot-reload-api: registry.npmmirror.com/vue-hot-reload-api@2.3.4
+      vue-hot-reload-api: registry.npmmirror.com/vue-hot-reload-apis@2.3.4
       vue-style-loader: registry.npmmirror.com/vue-style-loader@4.1.3
       webpack: registry.npmmirror.com/webpack@5.78.0(@swc/core@1.3.23)
     transitivePeerDependencies:
@@ -20156,7 +20170,7 @@ packages:
         optional: true
     dependencies:
       '@types/bonjour': registry.npmmirror.com/@types/bonjour@3.5.11
-      '@types/connect-history-api-fallback': registry.npmmirror.com/@types/connect-history-api-fallback@1.5.1
+      '@types/connect-history-api-fallback': registry.npmmirror.com/@types/connect-history-apis-fallback@1.5.1
       '@types/express': registry.npmmirror.com/@types/express@4.17.18
       '@types/serve-index': registry.npmmirror.com/@types/serve-index@1.9.2
       '@types/serve-static': registry.npmmirror.com/@types/serve-static@1.15.3
@@ -20167,7 +20181,7 @@ packages:
       chokidar: registry.npmmirror.com/chokidar@3.5.3
       colorette: registry.npmmirror.com/colorette@2.0.20
       compression: registry.npmmirror.com/compression@1.7.4
-      connect-history-api-fallback: registry.npmmirror.com/connect-history-api-fallback@2.0.0
+      connect-history-api-fallback: registry.npmmirror.com/connect-history-apis-fallback@2.0.0
       default-gateway: registry.npmmirror.com/default-gateway@6.0.3
       express: registry.npmmirror.com/express@4.18.2
       graceful-fs: registry.npmmirror.com/graceful-fs@4.2.11
