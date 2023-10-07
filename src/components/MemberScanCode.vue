@@ -5,8 +5,8 @@ const handleToggle = () => {
     success: (res) => {
       console.log(res);
       if(res.errMsg === "scanCode:ok") {
-        let result =  res.result;
-        let resultJson = eval("(" + result + ")");
+        const result =  res.result;
+        const resultJson = eval("(" + result + ")");
         let {jwt, time} = resultJson;
         time = time / 1000; // 毫秒转秒
         let now = new Date().getTime(); //拿到当前的时间戳
@@ -23,6 +23,7 @@ const handleToggle = () => {
             icon: "success"
           });
 
+		      //发送请求到后端处理成员信息：放行、放弃
           return;
         }
       }

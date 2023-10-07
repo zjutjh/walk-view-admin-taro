@@ -5,7 +5,8 @@
     "node": true
   },
   "extends": [
-    "plugin:vue/vue3-essential"
+    "plugin:vue/vue3-essential",
+    "@vue/eslint-config-typescript/recommended"
   ],
   "overrides": [],
   "parser": "vue-eslint-parser",
