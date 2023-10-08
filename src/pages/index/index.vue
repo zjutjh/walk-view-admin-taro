@@ -43,7 +43,7 @@ onMounted(async () => {
   else if (!await autoLogin()) {
     await Taro.showModal({
       title: "登录失败!",
-      content: "登录过期请再次登录!"
+      content: "自动登录失败请再次登录!"
     });
   } else {
     await Taro.navigateTo({

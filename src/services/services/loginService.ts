@@ -32,7 +32,6 @@ async function loginByAccount(
     success: function (res) {
       if (res.code) {
         //发起网络请求
-        code.setCode(res.code);
         Taro.request({
           method: "POST",
           url: api.login.bind,
@@ -40,7 +39,11 @@ async function loginByAccount(
             ...data,
             code: res.code
           }
+        }).then((res) => {
+          if(res.data.data.jwt)
+            jwt.setJwt(res.data.data.jwt);
         });
+        code.setCode(res.code);
       } else {
         console.log("绑定自动登录失败！" + res.errMsg);
       }

@@ -1,0 +1,104 @@
+.content-wrapper {
+  width: 95vw;
+  position: relative;
+}
+
+.title {
+  position: relative;
+  font-family: "Arial Black";
+  font-weight: bolder;
+  font-size: 55px;
+  top: 1vh;
+  margin-left: 30px;
+}
+
+.team-info-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.team-info {
+  display: flex;
+  line-height: 40px;
+  height: 4vh;
+  font-size: 40px;
+  font-weight: 800;
+  justify-content: space-between;
+  padding-top: 40px;
+}
+
+.left {
+  padding-left: 50px;
+  left: 50px;
+
+}
+.right {
+  padding-right: 30px;
+}
+
+.table-wrapper {
+  width: 100%;
+  left: 40px;
+  position: relative;
+}
+
+.table {
+  display: flex;
+  flex-direction: column;     /* 排列形式: 向下 */
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.tr {
+  display: flex;
+  flex-direction: row;
+}
+
+.th, .td {  /* 公有的属性 */
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;            /* 自动换行 */
+  width: 30%; /* 4个25%相加刚好100% */
+  height: 4vh;
+  text-align: center;         /* 文本居中 */
+  justify-content:center;     /* 主轴居中 */
+  align-items: center;        /* 交叉轴居中 */
+  border-top: 1px solid #dadada;      /* 单元格上线框 */
+  border-bottom: 1px solid #dadada;   /* 单元格下线框 */
+  border-left: 1px solid #dadada;     /* 单元格左线框 */
+  border-right: 1px solid #dadada;    /* 单元格右线框 */
+}
+
+.th {
+  font-weight: 800;           /* 字体加重 */
+  background-color:#B3CCF4;   /* 背景色 */
+}
+
+.td {
+  background-color:#edf3e9;   /* 背景色 */
+}
+
+.button-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between; /* 控制主轴上的间隔 */
+  align-items: center; /* 控制交叉轴上的对齐 */
+}
+
+.button-wrapper .child {
+  outline-style: none ;
+  border-radius: 3px;
+  height: 70px;
+  width: 500px;
+  font-size: 30px;
+  line-height: 50px;
+  background: limegreen;
+  border: 1px solid #eee;
+  box-sizing: border-box;
+  color: #fff;
+  padding: 15px;
+  flex-basis: calc(50% - 10px); /* 控制宽度为50%，减去间隔的一半 */
+  margin-bottom: 20px; /* 控制行间距 */
+}
