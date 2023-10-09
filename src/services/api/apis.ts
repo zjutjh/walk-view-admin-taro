@@ -11,7 +11,7 @@ const apis = {
   },
   user: {
     userScanCode: "/admin/user/sm", //POST 用户扫码
-    userPass: "/admin/user/out", //POST 用户放行/用户手动输入 ID
+    userPass: "/admin/user/sd", //POST 用户放行/用户手动输入 ID
   }
 
 };
