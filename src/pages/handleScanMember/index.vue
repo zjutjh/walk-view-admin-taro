@@ -27,6 +27,7 @@ const changeWalkStatus = (val: number) => {
   else if(val === 2) {
     walkStatusChange.value = 2;
   }
+  number.value = parseInt(number.value.toString());
   if(number.value === 1 || number.value === 2 || number.value === 3 || number.value === 4 || number.value === 5) {
     postHandleMember({
       user_id: membersStore.membersStorage[parseInt(number.value.toString()) - 1].openId,
