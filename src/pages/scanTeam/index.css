@@ -9,14 +9,12 @@
 }
 
 .team-input {
-    outline-style: none ;
-    border: 1px solid #ccc;
+    border: 1px solid black;
     border-radius: 3px;
     padding: 6px;
     height: 60px;
-    width: 500px;
+    width: 50vw;
     font-size: 20px;
-    font-family: "Microsoft soft";
     margin: 20px;
 }
 

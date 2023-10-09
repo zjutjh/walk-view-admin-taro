@@ -81,24 +81,31 @@
 }
 
 .button-wrapper {
+  position: relative;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between; /* 控制主轴上的间隔 */
   align-items: center; /* 控制交叉轴上的对齐 */
 }
 
-.button-wrapper .child {
-  outline-style: none ;
+.button-wrapper {
   border-radius: 3px;
-  height: 70px;
-  width: 500px;
+  position: relative;
   font-size: 30px;
-  line-height: 50px;
+  padding: 15px;
+  margin-bottom: 20px; /* 控制行间距 */
+}
+
+.child {
+  border-radius: 3px;
+  width: 50vw;
+  font-size: 30px;
+  line-height: 7vh;
   background: limegreen;
-  border: 1px solid #eee;
+  border: 1px solid black;
   box-sizing: border-box;
   color: #fff;
+  left: 25vw;
   padding: 15px;
-  flex-basis: calc(50% - 10px); /* 控制宽度为50%，减去间隔的一半 */
   margin-bottom: 20px; /* 控制行间距 */
 }

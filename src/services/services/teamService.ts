@@ -77,4 +77,23 @@ async function postTeamScanCode(
     }
   });
 }
-export {getTeamStatus, postTeamScanCode};
+
+async function letGoTeam (
+  data: teamData): Promise<boolean>{
+  await Taro.request({
+    url: apis.team.teamPass,
+    method: "POST",
+    data: data,
+    header: {
+      "Authorization": "Bearer " + jwt.getJwt()
+    },
+    fail: function () {
+      return false;
+    }
+  }).then((res) => {
+    return res.data.msg === "ok";
+  });
+  return true;
+}
+
+export {getTeamStatus, postTeamScanCode , letGoTeam };
