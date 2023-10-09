@@ -43,10 +43,10 @@
   </view>
   <view class="button-wrapper">
     <view>
-      <button class="child" type="submit" @tap="login">登录</button>
-      <button class="child" type="submit" @tap="login">登录</button>
-      <button class="child" type="submit" @tap="login">登录</button>
-      <button class="child" type="submit" @tap="login">登录</button>
+      <button class="child" type="submit" @tap="pushToScanMember">扫码通行</button>
+      <button class="child" type="submit" @tap="pushToHandleScanMember">手动输入队员序号</button>
+      <button class="child" type="submit" @tap="login">提交团队</button>
+      <button class="child" type="submit" @tap="login">放弃</button>
     </view>
   </view>
 </view>
@@ -54,12 +54,14 @@
 
 <script setup lang="ts">
 import "./index.css";
-import {onMounted, ref} from "vue";
+import {onMounted, pushScopeId, ref} from "vue";
 import {TeamStatus} from "../../types/teamStatus";
 import {memberStorageType, useMembersStore} from "../../stores/members";
 import {getTeamStatus} from "../../services/services/teamService";
 import Taro from "@tarojs/taro";
 import {useTeamStore} from "../../stores/team";
+import {apis} from "@tarojs/plugin-platform-h5/dist/dist/definition.json";
+import login = apis.login;
 const teamStatus: string[] = ["未开始","未开始","进行中","扫码成功","放弃","完成"];
 const route: string[] = ["朝晖路线","屏峰半程","屏峰全程","莫干山半程","莫干山全程"];
 const walkStatus: string[] = ["未处理","以扫码放行","已放弃"];
@@ -154,4 +156,46 @@ onMounted(async () => {
   console.log(members);
 });
 
+const handleToggle = () => {
+  Taro.scanCode({
+    success: (res) => {
+      console.log(res);
+      if(res.errMsg === "scanCode:ok") {
+        const result =  res.result;
+        const resultJson = eval("(" + result + ")");
+        let {jwt, time} = resultJson;
+        time = time / 1000; // 毫秒转秒
+        let now = new Date().getTime(); //拿到当前的时间戳
+        now = now / 1000; // 毫秒转秒
+        if(now - time > 15) {
+          Taro.showToast({
+            title: "二维码已过期",
+            icon: "error"
+          });
+          return;
+        }else if(now - time <= 15) {
+          Taro.showToast({
+            title: "扫码成功",
+            icon: "success"
+          });
+
+          //发送请求到后端处理成员信息：放行、放弃
+          return;
+        }
+      }
+    }
+  });
+};
+
+const pushToScanMember = () => {
+  Taro.navigateTo({
+    url: "/pages/scanMember/index"
+  });
+};
+
+const pushToHandleScanMember = () => {
+  Taro.navigateTo({
+    url: "/pages/handleScanMember/index"
+  });
+};
 </script>

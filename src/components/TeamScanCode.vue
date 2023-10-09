@@ -9,7 +9,7 @@ const handleToggle = () => {
       console.log(res);
       if(res.errMsg === "scanCode:ok") {
         const result =  res.result;
-        const resultJson = eval("(" + result + ")");
+        const resultJson = JSON.parse(result);
         const {team_id} = resultJson;
         let {time} = resultJson;
         time = time / 1000; // 毫秒转秒
@@ -23,7 +23,7 @@ const handleToggle = () => {
           return;
         }else if(now - time <= 15) {
 		      //发送请求到后端拿到团队信息，并跳转页面
-          postTeamScanCode(team_id);
+          postTeamScanCode({team_id});
           return;
         }
       }

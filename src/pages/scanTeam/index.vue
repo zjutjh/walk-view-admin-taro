@@ -11,16 +11,24 @@
 import {onMounted, ref} from "vue";
 import TeamScanCode from "../../components/TeamScanCode.vue";
 import {postTeamScanCode} from "../../services/services/teamService";
+import {useTeamStore} from "../../stores/team";
+import Taro from "@tarojs/taro";
 
 onMounted(() => {
 });
 
 
 const handleTeamID = ref("");
+const teamStore = useTeamStore();
 const handleInput = () => {
   postTeamScanCode({
     team_id: parseInt(handleTeamID.value.toString())
   });
+  if(teamStore.team_id !== -1) {
+    Taro.navigateTo({
+      url:"/pages/teamInfo/index",
+    });
+  }
 };
 
 </script>
