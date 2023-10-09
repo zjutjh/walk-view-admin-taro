@@ -12,6 +12,7 @@
 import {ref,onMounted} from "vue";
 import Taro from "@tarojs/taro";
 import {postScanCodeMember} from "../../services/services/memberService";
+import "./index.css";
 
 const memberJwt = ref("");
 const walkStatusChange = ref(-1);

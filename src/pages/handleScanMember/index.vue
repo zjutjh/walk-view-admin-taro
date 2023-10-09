@@ -15,6 +15,7 @@ import {ref} from "vue";
 import {postHandleMember} from "../../services/services/memberService";
 import {useMembersStore} from "../../stores/members";
 import Taro from "@tarojs/taro";
+import "./index.css";
 
 const membersStore = useMembersStore();
 
@@ -30,6 +31,7 @@ const changeWalkStatus = (val: number) => {
   number.value = parseInt(number.value.toString());
   if(number.value === 1 || number.value === 2 || number.value === 3 || number.value === 4 || number.value === 5) {
     postHandleMember({
+      id: number.value-1,
       user_id: membersStore.membersStorage[parseInt(number.value.toString()) - 1].openId,
       walk_status: walkStatusChange.value
     });

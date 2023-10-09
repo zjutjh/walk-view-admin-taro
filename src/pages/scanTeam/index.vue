@@ -13,6 +13,7 @@ import TeamScanCode from "../../components/TeamScanCode.vue";
 import {postTeamScanCode} from "../../services/services/teamService";
 import {useTeamStore} from "../../stores/team";
 import Taro from "@tarojs/taro";
+import "./index.css";
 
 onMounted(() => {
 });

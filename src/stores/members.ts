@@ -34,8 +34,10 @@ export const useMembersStore = defineStore("members",() => {
   };
   const dealMember = (open_id: string,res: number) => {
     for(let idx = 0;idx < membersStorage.value.length ; idx ++) {
-      if(membersStorage.value[idx]["openId"] === open_id)
+      if(membersStorage.value[idx]["openId"] === open_id) {
         membersStorage.value[idx]["status"] = res;
+        console.log(membersStorage.value[idx]);
+      }
     }
     return;
   };

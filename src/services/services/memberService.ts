@@ -1,6 +1,7 @@
 import {useJwtStore} from "../../stores/jwt";
 import Taro from "@tarojs/taro";
 import apis from "../api/apis";
+import {useMembersStore} from "../../stores/members";
 
 interface scanCodeMemberData {
 	jwt: string,
@@ -8,6 +9,7 @@ interface scanCodeMemberData {
 }
 
 interface handleMemberData {
+  id: number
 	user_id: string,//也是 openid
 	walk_status: number,//1为继续走，2 为放弃
 }
@@ -28,6 +30,7 @@ async function postScanCodeMember(
       console.log(res);
       if (res.data.code === 200) {
         console.log("member scan code success");
+        useMembersStore().dealMember(res.data.data.open_id,data.walk_status);
         Taro.showToast({
           title: "扫码成功",
           icon: "success",
@@ -54,6 +57,7 @@ async function postHandleMember(
       console.log(res);
       if (res.data.code === 200) {
         console.log("handle member success");
+        useMembersStore().handleMember(data.id,data.walk_status);
         Taro.showToast({
           title: "处理成功",
           icon: "success",

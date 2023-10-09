@@ -33,10 +33,10 @@
         <view class="th">操作</view>
       </view>
       <view class="tr" v-for="(mem , index) in members" :key="index">
-        <view class="td">{{ index }}</view>
+        <view class="td">{{ index + 1}}</view>
         <view class="td">{{mem.name}}</view>
         <view class="td" :style="{
-          color: mem.status===0 ? 'red' : 'white'
+          color: mem.status===0 ? 'red' : 'black'
         }">{{walkStatus[mem.status]}}</view>
       </view>
     </view>
@@ -45,7 +45,7 @@
     <view>
       <button class="child" type="submit" @tap="pushToScanMember">扫码通行</button>
       <button class="child" type="submit" @tap="pushToHandleScanMember">手动输入队员序号</button>
-      <button class="child" disabled="canLetGo" :style="{background: canLetGo ? 'grey' : 'limegreen'}" type="submit" @tap="letGo()">
+      <button class="child" :style="{background: canLetGo ? 'limegreen' : 'grey'}" type="submit" @tap="letGo(canLetGo)">
         {{canLetGo? "放行团队" : "当前队伍不符合放行要求"}}
       </button>
       <button class="child" :style="{background: '#7f0000'}" type="submit" @tap="getBack()">返回</button>
@@ -56,7 +56,7 @@
 
 <script setup lang="ts">
 import "./index.css";
-import {onMounted, pushScopeId, ref} from "vue";
+import {onMounted , ref} from "vue";
 import {TeamStatus} from "../../types/teamStatus";
 import {memberStorageType, useMembersStore} from "../../stores/members";
 import {getTeamStatus, letGoTeam} from "../../services/services/teamService";
@@ -78,27 +78,51 @@ function getBack() {
 }
 const canLetGo = ref<boolean>(false);
 
-async function letGo () {
-  const data = {
-    team_id: useTeamStore().getTeamId(),
-  };
-  const res = letGoTeam(data);
-  if(res) {
-    await Taro.showToast({
-      title: "放行成功!",
-      icon: "success",
-    });
-    getBack();
-  }
-  else {
-    await Taro.showToast({
-      title: "放行失败!请检查是否有成员未扫码!",
+async function letGo (canLetGo: boolean) {
+  if (!canLetGo) {
+    Taro.showToast({
+      title: "队伍条件不满足,无法放行!",
       icon: "error",
     });
   }
+  else
+  {
+    const data = {
+      team_id: useTeamStore().getTeamId(),
+    };
+    const res = letGoTeam(data);
+    if (res) {
+      await Taro.showToast({
+        title: "放行成功!",
+        icon: "success",
+      });
+      getBack();
+    } else {
+      await Taro.showToast({
+        title: "放行失败!请检查是否有成员未扫码!",
+        icon: "error",
+      });
+    }
+  }
 }
 
-async function initData() {
+
+
+useDidShow(async () => {
+  members.value = membersStore.getMembers();
+  console.log(members);
+  const len = members.value?.length;
+  let ct = 0;
+  for(let i = 0 ; i < len ; i ++) {
+    if (members.value[i]["status"] === 1)
+      ct ++;
+  }
+  if ( ct > len / 2 )
+    canLetGo.value = true;
+}
+);
+
+onMounted(async () => {
   const data = {
     team_id: useTeamStore().getTeamId()
   };
@@ -125,14 +149,6 @@ async function initData() {
     if ( ct > len / 2 )
       canLetGo.value = true;
   }
-}
-
-useDidShow(() => {
-  initData();
-});
-
-onMounted(async () => {
-  initData();
 });
 
 const handleToggle = () => {
