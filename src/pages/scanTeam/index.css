@@ -1,0 +1,42 @@
+.content-wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 60vh;
+    width: 100vw;
+}
+
+.team-input {
+    outline-style: none ;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    padding: 6px;
+    height: 60px;
+    width: 500px;
+    font-size: 20px;
+    font-family: "Microsoft soft";
+    margin: 20px;
+}
+
+.team-button {
+    outline-style: none ;
+    background: #169bd5;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    padding: 6px;
+    height: 70px;
+    width: 500px;
+    font-size: 30px;
+    color: aliceblue;
+    line-height: 50px;
+    margin: 20px;
+}
+
+.title {
+    font-family: "Arial Black";
+    font-weight: bolder;
+    font-size: 70px;
+    margin-bottom: 150px;
+}

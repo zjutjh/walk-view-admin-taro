@@ -2,6 +2,7 @@ import {useJwtStore} from "../../stores/jwt";
 import Taro from "@tarojs/taro";
 import apis from "../api/apis";
 import {TeamStatus} from "../../types/teamStatus";
+import {useTeamStore} from "../../stores/team";
 
 interface teamData {
   team_id: number
@@ -37,4 +38,43 @@ async function getTeamStatus(
   }
 }
 
-export {getTeamStatus};
+async function postTeamScanCode(
+  data: teamData
+) {
+  await Taro.request({
+    method: "POST",
+    url: apis.team.teamScanCode,
+    data: data,
+    header: {
+      "Authorization": "Bearer " + jwt.getJwt()
+    },
+    success: function (res) {
+      console.log(res);
+      if (res.data.code === 200 && res.data.msg === "ok") {
+        console.log("team scan code success");
+        Taro.showToast({
+          title: "团队扫码成功",
+          icon: "success",
+        });
+
+        const teamStore = useTeamStore();
+        teamStore.setTeamId(data.team_id);
+
+        Taro.navigateTo({
+          url:"/pages/teamInfo/index",
+        });
+      }
+      if(res.data.code === -1) {
+        console.log("team scan code failed");
+        Taro.showToast({
+          title: "权限不足",
+          icon: "error",
+        });
+      }
+    },
+    fail: function (res) {
+      console.error(res);
+    }
+  });
+}
+export {getTeamStatus, postTeamScanCode};
