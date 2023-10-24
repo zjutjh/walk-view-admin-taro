@@ -4,6 +4,7 @@
     <team-scan-code />
     <input class="team-input" type="text" placeholder="如遇团队通行码扫码失败，请手动输入团队ID进入" v-model="handleTeamID"/>
     <button class="team-button" type="submit" @tap="handleInput">手动进入</button>
+    <button class="team-button" type="submit" @tap="logout()">退出登录</button>
   </view>
 </template>
 
@@ -18,7 +19,11 @@ import "./index.css";
 onMounted(() => {
 });
 
-
+function logout() {
+  Taro.navigateTo({
+    url: "/pages/index/index",
+  });
+}
 const handleTeamID = ref("");
 const teamStore = useTeamStore();
 const handleInput = () => {

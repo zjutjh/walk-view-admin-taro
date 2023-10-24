@@ -32,23 +32,21 @@
         <view class="th">成员名称</view>
         <view class="th">操作</view>
       </view>
-      <view class="tr" v-for="(mem , index) in members" :key="index">
+      <view class="tr" v-for="(mem , index) in teamData.member" :key="index">
         <view class="td">{{ index + 1}}</view>
         <view class="td">{{mem.name}}</view>
-        <view class="td" :style="{
-          color: mem.status===0 ? 'red' : 'black'
-        }">{{walkStatus[mem.status]}}</view>
+        <view class="td" >{{walkStatus[mem.walk_status]}}</view>
       </view>
     </view>
   </view>
   <view class="button-wrapper">
     <view>
       <button class="child" type="submit" @tap="pushToScanMember">扫码通行</button>
-      <button class="child" type="submit" @tap="pushToHandleScanMember">手动输入队员序号</button>
-      <button class="child" :style="{background: canLetGo ? 'limegreen' : 'grey'}" type="submit" @tap="letGo(canLetGo)">
-        {{canLetGo? "放行团队" : "当前队伍不符合放行要求"}}
+      <button class="child" type="submit" @tap="pushToHandleScanMember">手动输入放弃队员序号</button>
+      <button class="child"  type="submit" @tap="letGo()">
+        {{"放行团队"}}
       </button>
-      <button class="child" :style="{background: '#7f0000'}" type="submit" @tap="getBack()">返回</button>
+      <button class="child" :style="{background: '#169bd5'}" type="submit" @tap="getBack()">返回</button>
     </view>
   </view>
 </view>
@@ -56,73 +54,72 @@
 
 <script setup lang="ts">
 import "./index.css";
-import {onMounted , ref} from "vue";
+import {onBeforeMount, onMounted, ref} from "vue";
 import {TeamStatus} from "../../types/teamStatus";
 import {memberStorageType, useMembersStore} from "../../stores/members";
-import {getTeamStatus, letGoTeam} from "../../services/services/teamService";
+import {getTeamStatus, letGoTeam , postTeamScanCode} from "../../services/services/teamService";
 import Taro, {useDidShow} from "@tarojs/taro";
 import {useTeamStore} from "../../stores/team";
 import {apis} from "@tarojs/plugin-platform-h5/dist/dist/definition.json";
 import login = apis.login;
-const teamStatus: string[] = ["未开始","未开始","进行中","扫码成功","放弃","完成"];
-const route: string[] = ["朝晖路线","屏峰半程","屏峰全程","莫干山半程","莫干山全程"];
-const walkStatus: string[] = ["未处理","以扫码放行","已放弃"];
+import {postMemberList} from "../../services/services/memberService";
+const teamStatus: string[] = ["数据错误","未开始","进行中","未完成","完成","扫码成功"];
+const route: string[] = ["数据错误","朝晖路线","屏峰半程","屏峰全程","莫干山半程","莫干山全程"];
+const walkStatus: string[] = ["数据错误","未开始","进行中","扫码成功","放弃","完成"];
 const membersStore = useMembersStore();
 const members = ref<memberStorageType[]>();
 const teamData = ref<TeamStatus | boolean >();
 
 function getBack() {
   Taro.navigateTo({
-    url: "/pages/scanTeam/index",
+    url: "/pages/index/index",
   });
 }
 const canLetGo = ref<boolean>(false);
 
-async function letGo (canLetGo: boolean) {
-  if (!canLetGo) {
-    Taro.showToast({
-      title: "队伍条件不满足,无法放行!",
-      icon: "error",
-    });
+async function letGo () {
+  if(!teamData.value) return;
+  for(let idx = 0 ; idx < teamData.value["member"].length;idx++){
+    if(teamData.value["member"][idx]["walk_status"] === 4)
+      useMembersStore().deletByUserId(teamData.value["member"][idx]["open_id"]);
   }
-  else
+  if (await postMemberList({
+    user: membersStore.getMembers()
+  }))
   {
     const data = {
       team_id: useTeamStore().getTeamId(),
     };
-    const res = letGoTeam(data);
-    if (res) {
-      await Taro.showToast({
-        title: "放行成功!",
-        icon: "success",
-      });
-      getBack();
-    } else {
-      await Taro.showToast({
-        title: "放行失败!请检查是否有成员未扫码!",
-        icon: "error",
-      });
-    }
+    await letGoTeam(data);
+  }
+  else {
+    await Taro.showToast({
+      icon: "error",
+      title: "成员放行失败!"
+    });
   }
 }
 
 
 
 useDidShow(async () => {
-  members.value = membersStore.getMembers();
-  console.log(members);
-  const len = members.value?.length;
-  let ct = 0;
-  for(let i = 0 ; i < len ; i ++) {
-    if (members.value[i]["status"] === 1)
-      ct ++;
+  const data = {
+    team_id: useTeamStore().getTeamId()
+  };
+  teamData.value = await getTeamStatus(data);
+  if(!teamData.value) {
+    await Taro.showModal({
+      title: "获取团队信息失败!",
+      content: "权限不够或者登录有误!"
+    });
+    await Taro.navigateTo({
+      url: "/pages/scanTeam/index"
+    });
   }
-  if ( ct > len / 2 )
-    canLetGo.value = true;
 }
 );
 
-onMounted(async () => {
+onBeforeMount(async () => {
   const data = {
     team_id: useTeamStore().getTeamId()
   };
@@ -137,6 +134,7 @@ onMounted(async () => {
     });
   }
   else {
+    console.log(teamData.value);
     membersStore.initMembers(teamData.value["member"]);
     members.value = membersStore.getMembers();
     console.log(members);
@@ -150,37 +148,6 @@ onMounted(async () => {
       canLetGo.value = true;
   }
 });
-
-const handleToggle = () => {
-  Taro.scanCode({
-    success: (res) => {
-      console.log(res);
-      if(res.errMsg === "scanCode:ok") {
-        const result =  res.result;
-        const resultJson = eval("(" + result + ")");
-        let {jwt, time} = resultJson;
-        time = time / 1000; // 毫秒转秒
-        let now = new Date().getTime(); //拿到当前的时间戳
-        now = now / 1000; // 毫秒转秒
-        if(now - time > 15) {
-          Taro.showToast({
-            title: "二维码已过期",
-            icon: "error"
-          });
-          return;
-        }else if(now - time <= 15) {
-          Taro.showToast({
-            title: "扫码成功",
-            icon: "success"
-          });
-
-          //发送请求到后端处理成员信息：放行、放弃
-          return;
-        }
-      }
-    }
-  });
-};
 
 const pushToScanMember = () => {
   Taro.navigateTo({

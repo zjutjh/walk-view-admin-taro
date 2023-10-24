@@ -9,9 +9,8 @@
 
 <script setup lang="ts">
 import "./index.css";
-import {onMounted, ref} from "vue";
-import {autoLogin, loginByAccount} from "../../services/services/loginService";
-import {useCodeStore} from "../../stores/code";
+import {ref} from "vue";
+import { loginByAccount } from "../../services/services/loginService";
 import Taro from "@tarojs/taro";
 
 const account = ref<string>("");
@@ -35,23 +34,4 @@ async function login(){
     content: "账号或者密码错误"
   });
 }
-
-onMounted(async () => {
-  const code = useCodeStore();
-  console.log("code:"+code.getCode());
-  if (code.getCode() === "") return;
-  else if (!await autoLogin()) {
-    await Taro.showModal({
-      title: "登录失败!",
-      content: "自动登录失败请再次登录!"
-    });
-  } else {
-    await Taro.navigateTo({
-      url: "/pages/scanTeam/index"
-    });
-    console.log("login by mounted");
-  }
-  return;
-});
-
 </script>

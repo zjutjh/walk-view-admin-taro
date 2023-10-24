@@ -1,15 +1,50 @@
+
+.content-wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 60vh;
+  width: 100vw;
+  top: 10vh;
+}
+
 .button-wrapper {
   display: flex;
+  position: relative;
   flex-wrap: wrap;
   justify-content: space-between; /* 控制主轴上的间隔 */
   align-items: center; /* 控制交叉轴上的对齐 */
 }
 
-.button-wrapper .child {
+
+.num-input {
+  outline-style: none ;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  height: 60px;
+  width: 50vw;
+  left: 25vw;
+  font-size: 30px;
+  padding-bottom: 30px;
+}
+
+.button-wrapper {
+  position: relative;
+  display: flex;
+  position: relative;
+  flex-wrap: wrap;
+  padding-top: 90px;
+  justify-content: space-between; /* 控制主轴上的间隔 */
+  align-items: center; /* 控制交叉轴上的对齐 */
+}
+
+.child {
   outline-style: none ;
   border-radius: 3px;
   height: 70px;
-  width: 500px;
+  width: 50vw;
   font-size: 30px;
   line-height: 50px;
   background: limegreen;

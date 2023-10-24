@@ -1,22 +1,45 @@
-.button-wrapper {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between; /* 控制主轴上的间隔 */
-    align-items: center; /* 控制交叉轴上的对齐 */
+
+.content-wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 60vh;
+  width: 100vw;
+  top: 10vh;
 }
 
-.button-wrapper .child {
-    outline-style: none ;
-    border-radius: 3px;
-    height: 70px;
-    width: 500px;
-    font-size: 30px;
-    line-height: 50px;
-    background: limegreen;
-    border: 1px solid #eee;
-    box-sizing: border-box;
-    color: #fff;
-    padding: 15px;
-    flex-basis: calc(50% - 10px); /* 控制宽度为50%，减去间隔的一半 */
-    margin-bottom: 20px; /* 控制行间距 */
+.button-wrapper {
+  display: flex;
+  position: relative;
+  flex-wrap: wrap;
+  justify-content: space-between; /* 控制主轴上的间隔 */
+  align-items: center; /* 控制交叉轴上的对齐 */
+}
+
+.button-wrapper {
+  position: relative;
+  display: flex;
+  position: relative;
+  flex-wrap: wrap;
+  padding-top: 90px;
+  justify-content: space-between; /* 控制主轴上的间隔 */
+  align-items: center; /* 控制交叉轴上的对齐 */
+}
+
+.child {
+  outline-style: none ;
+  border-radius: 3px;
+  height: 70px;
+  width: 50vw;
+  font-size: 30px;
+  line-height: 50px;
+  background: limegreen;
+  border: 1px solid #eee;
+  box-sizing: border-box;
+  color: #fff;
+  padding: 15px;
+  flex-basis: calc(50% - 10px); /* 控制宽度为50%，减去间隔的一半 */
+  margin-bottom: 20px; /* 控制行间距 */
 }

@@ -12,11 +12,12 @@ const apis = {
   user: {
     userScanCode: "/admin/user/sm", //POST 用户扫码
     userPass: "/admin/user/sd", //POST 用户放行/用户手动输入 ID
+    userList: "/admin/user/list",
   }
 
 };
 
-const BaseUrl = "https://walk-back.ximo210.top/api/v1";
+const BaseUrl = "https://demo.patrickstar.net.cn/api/v1";
 
 function appendHost(api: any) {
   for (const key in api)

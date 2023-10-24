@@ -80,6 +80,7 @@ async function postTeamScanCode(
 
 async function letGoTeam (
   data: teamData): Promise<boolean>{
+  let res ;
   await Taro.request({
     url: apis.team.teamPass,
     method: "POST",
@@ -89,11 +90,26 @@ async function letGoTeam (
     },
     fail: function () {
       return false;
+    },
+    success: function (resT){
+      res = resT.data;
     }
-  }).then((res) => {
-    return res.data.msg === "ok";
   });
-  return true;
+  if(res.code === 200) {
+    await Taro.showToast({
+      title: "放行成功!",
+      icon: "success",
+    });
+    await Taro.navigateTo({
+      url: "/pages/scanTeam/index"
+    });
+  }
+  else {
+    await Taro.showToast({
+      title: res.msg,
+      icon: "error",
+    });
+  }
 }
 
 export {getTeamStatus, postTeamScanCode , letGoTeam };
