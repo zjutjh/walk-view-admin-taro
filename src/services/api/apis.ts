@@ -17,14 +17,14 @@ const apis = {
 
 };
 
-const BaseUrl = "https://demo.patrickstar.net.cn/api/v1";
-
+const devBaseUrl = "https://walk-back.lonesome.cn/api/v1";
+const proBaseUrl = "https://demo.patrickstar.net.cn/api/v1";
 function appendHost(api: any) {
   for (const key in api)
     if (Object.prototype.hasOwnProperty.call(api, key))
       if (api[key] instanceof Object) appendHost(api[key]);
       else
-        api[key] = BaseUrl + api[key];
+        api[key] = proBaseUrl + api[key];
 }
 appendHost(apis);
 console.log(apis);

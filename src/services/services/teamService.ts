@@ -103,12 +103,14 @@ async function letGoTeam (
     await Taro.navigateTo({
       url: "/pages/scanTeam/index"
     });
+    return true;
   }
   else {
     await Taro.showToast({
       title: res.msg,
       icon: "error",
     });
+    return false;
   }
 }
 
