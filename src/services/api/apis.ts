@@ -16,7 +16,7 @@ const apis = {
 
 };
 
-const BaseUrl = "https://walk-back.ximo210.top/api/v1";
+const BaseUrl = "https://walk.phlin.top/api/v1";
 
 function appendHost(api: any) {
   for (const key in api)

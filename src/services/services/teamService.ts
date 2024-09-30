@@ -27,6 +27,7 @@ async function getTeamStatus(
       console.error(res);
     }
   });
+  console.log(res);
   if (res.data.msg === "ok" ){
     console.log("get team data success");
     return res.data.data;

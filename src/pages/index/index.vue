@@ -3,7 +3,7 @@
   <text class="title">毅行管理员登录</text>
   <input class="login-input" type="text" placeholder="请输入账号" v-model="account"/>
   <input class="login-input" type="text" placeholder="请输入密码" v-model="password"/>
-  <button class="login-button" type="submit" @tap="login">登录</button>
+  <button class="login-button" @tap="login">登录</button>
 </view>
 </template>
 
