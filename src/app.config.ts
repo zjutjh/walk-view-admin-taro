@@ -5,6 +5,7 @@ export default {
     "pages/scanMember/index",
     "pages/scanTeam/index",
     "pages/teamInfo/index",
+    "pages/manage/index",
   ],
   window: {
     backgroundTextStyle: "light",

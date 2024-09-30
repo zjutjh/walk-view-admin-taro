@@ -2,6 +2,7 @@ import api from "../api/apis";
 import Taro from "@tarojs/taro";
 import {useCodeStore} from "../../stores/code";
 import {useJwtStore} from "../../stores/jwt";
+import { useAdminStore } from "../../stores/admin";
 
 interface loginData {
   account: string;
@@ -9,7 +10,18 @@ interface loginData {
 }
 const code = useCodeStore();
 const jwt = useJwtStore();
+const admin = useAdminStore();
 
+const saveLoginData = (resAdmin: any) => {
+  console.log(resAdmin);
+  admin.setAccount(resAdmin.account);
+  admin.setAdminId(resAdmin.admin_id);
+  admin.setName(resAdmin.name);
+  admin.setPoint(resAdmin.point);
+  admin.setRoute(resAdmin.route);
+}
+
+//账号登陆服务
 async function loginByAccount(
   data: loginData
 ): Promise<boolean> {
@@ -20,7 +32,7 @@ async function loginByAccount(
     data: data,
     success: function (res) {
       resData = res;
-      console.log(resData);
+      saveLoginData(res.data.data.admin);
     },
     fail: function (res) {
       console.error(res);
@@ -28,10 +40,11 @@ async function loginByAccount(
   });
   if (resData.data.msg !== "ok") return false;
   jwt.setJwt(resData.data.data.jwt);
+
+  //绑定自动登录
   await Taro.login({
     success: function (res) {
       if (res.code) {
-        //发起网络请求
         Taro.request({
           method: "POST",
           url: api.login.bind,
@@ -53,6 +66,7 @@ async function loginByAccount(
   return true;
 }
 
+//自动登录
 async function autoLogin (): Promise<boolean> {
   const code = useCodeStore();
   let resData;
@@ -71,6 +85,7 @@ async function autoLogin (): Promise<boolean> {
   });
   if (resData.data.msg === "ok"){
     jwt.setJwt(resData.data.data.jwt);
+    saveLoginData(resData.data.data.admin);
     console.log("auto login success");
     return true;
   }

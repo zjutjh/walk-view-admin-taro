@@ -27,7 +27,7 @@ async function login(){
   if(res) {
     console.log("login success");
     await Taro.navigateTo({
-      url: "/pages/scanTeam/index"
+      url: "/pages/manage/index"
     });
   }
   else await Taro.showModal({
@@ -47,7 +47,7 @@ onMounted(async () => {
     });
   } else {
     await Taro.navigateTo({
-      url: "/pages/scanTeam/index"
+      url: "/pages/manage/index"
     });
     console.log("login by mounted");
   }
