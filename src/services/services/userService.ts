@@ -7,6 +7,11 @@ interface checkInData {
     content: string,
 }
 
+interface setUserStateData {
+    user_id: string, //openid
+    status: number,
+}
+
 const jwt = useJwtStore();
 
 const checkIn = async (
@@ -37,4 +42,23 @@ const checkIn = async (
     return false;
 }
 
-export { checkIn }
+const setUserState = async (
+    data: setUserStateData
+): Promise<boolean> => {
+    await Taro.request({
+        method: "POST",
+        url: apis.user.setUserState,
+        data: data,
+        header: {
+            "Authorization": "Bearer " + jwt.getJwt()
+        },
+        success: (res) => {
+            Taro.showModal({
+                title: res.data.code === 200?"操作成功":"操作失败",
+            })
+        }
+    })
+    return false;
+}
+
+export { checkIn, setUserState }

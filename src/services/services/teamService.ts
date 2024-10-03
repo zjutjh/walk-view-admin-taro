@@ -4,7 +4,8 @@ import apis from "../api/apis";
 import {TeamStatus} from "../../types/teamStatus";
 
 interface teamData {
-  team_id: number
+  code_type: number,
+  content: string
 }
 
 const jwt = useJwtStore();

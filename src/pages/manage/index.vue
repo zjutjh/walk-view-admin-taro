@@ -31,7 +31,7 @@ const showStateModal = () => {
             if(res.confirm) {
                 //跳转团队信息
                 Taro.navigateTo({
-                    url: "/pages/teamInfo/index?teamId="+res.content,
+                    url: "/pages/teamInfo/index?code="+res.content+"&codeType=1",
                 });
             }
         }

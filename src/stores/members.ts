@@ -19,7 +19,7 @@ export const useMembersStore = defineStore("members",() => {
     membersStorage.value = new Array(members.length);
     for (let idx = 0 ;idx < members.length ; idx ++) {
       console.log(idx);
-      membersStorage.value[idx] = { name: members[idx]["name"] , jwt: members[idx]["open_id"], status: 0 };
+      membersStorage.value[idx] = { name: members[idx]["name"] , jwt: members[idx]["open_id"], status: members[idx]["walk_status"] };
     }
     console.log(membersStorage.value);
   };

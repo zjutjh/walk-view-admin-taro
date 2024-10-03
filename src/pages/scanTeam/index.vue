@@ -1,7 +1,7 @@
 <template>
   <view class="scanTeamWrap">
-    <button @tap="get_scanCode">扫码签到</button>
-    <button @tap="toStatus()" v-if="teamId!==undefined">查看上一个扫码的团队状态</button>
+    <button @tap="get_scanCode" class="btnScan">扫码签到</button>
+    <button @tap="toStatus()" v-if="code!==undefined">查看上一个扫码的团队状态</button>
     <view class="scanTips">tips: 若团队成员下撤，扫码后查看团队状态即可</view>
   </view>
 </template>
@@ -12,11 +12,12 @@ import { checkIn } from "../../services/services/userService"
 import { ref } from "vue";
 import "./index.css"
 
-const teamId = ref();
+const code = ref();
+const codeType = ref();
 
 function toStatus() {
   Taro.navigateTo({
-    url: "/pages/teamInfo/index?teamId="+teamId.value,
+    url: "/pages/teamInfo/index?code="+code.value+"&codeType="+codeType.value,
   });
 }
 
@@ -48,7 +49,8 @@ const teamCheckIn = async (teamData: string) => {
   //模拟参数
   const data = JSON.parse(teamData);
   console.log(data);
-  teamId.value = data.code;
+  code.value = data.code;
+  codeType.value = data.type;
   await checkIn({
     code_type: data.type,
     content: data.code+"",

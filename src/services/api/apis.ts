@@ -5,7 +5,8 @@ const apis = {
     bind: "/admin/auth", //POST 管理员登录
   },
   user: {
-    scanCheckInCode: "/admin/team/update" //POST 扫码签到
+    scanCheckInCode: "/admin/team/update", //POST 扫码签到
+    setUserState: "/admin/team/user_status" //POST 设置用户状态
   },
   team: {
     // teamScanCode: "/admin/team/sm", //POST 团队扫码
