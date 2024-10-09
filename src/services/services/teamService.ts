@@ -8,6 +8,12 @@ interface teamData {
   content: string
 }
 
+interface teamBindData {
+  team_id: number,
+  code: string,
+  type: number
+}
+
 const jwt = useJwtStore();
 
 async function getTeamStatus(
@@ -39,4 +45,34 @@ async function getTeamStatus(
   }
 }
 
-export {getTeamStatus};
+async function bindTeamCode(
+  data: teamBindData
+): Promise<boolean> {
+  await Taro.request({
+    method: "POST",
+    url: apis.team.teamBind,
+    data: data,
+    header: {
+      "Authorization": "Bearer " + jwt.getJwt()
+    },
+    success: function (resData) {
+      if(resData.data.code === 200) {
+        wx.showModal({
+          title: "绑定成功"
+        })
+        return true;
+      } else {
+        wx.showModal({
+          title: "绑定失败",
+          content: resData.data.msg,
+        })
+      }
+    },
+    fail: function (res) {
+      console.error(res);
+    }
+  })
+  return false;
+}
+
+export { getTeamStatus , bindTeamCode };

@@ -11,6 +11,7 @@ const apis = {
   team: {
     // teamScanCode: "/admin/team/sm", //POST 团队扫码
     // teamPass: "/admin/team/out", //POST 团队放行/团队手动输入 ID
+    teamBind: "/admin/team/bind", // POST 团队码和签到码绑定
     teamStatus: "/admin/team/status", //GET 获取团队状态
   },
   // user: {

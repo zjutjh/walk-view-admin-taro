@@ -56,6 +56,9 @@ const setUserState = async (
             Taro.showModal({
                 title: res.data.code === 200?"操作成功":"操作失败",
             })
+            if(res.data.code === 200) {
+                return true;
+            }
         }
     })
     return false;
