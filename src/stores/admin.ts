@@ -54,11 +54,16 @@ export const useAdminStore = defineStore("admin",() => {
     if(route.value !== undefined) return route.value;
     else return Taro.getStorageSync("route");
   }
+
+  const secret = ref<string>();
+  const setSecret = (s: string) => { secret.value = s; };
+  const getSecret = () => { return secret.value; };
   return { 
     adminId, setAdminId, getAdminId,
     name, setName, getName,
     account, setAccount, getAccount,
     point, setPoint, getPoint,
     route, setRoute, getRoute,
+    secret, setSecret, getSecret,
    };
 });

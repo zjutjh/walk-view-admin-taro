@@ -9,16 +9,13 @@ const apis = {
     setUserState: "/admin/team/user_status" //POST 设置用户状态
   },
   team: {
-    // teamScanCode: "/admin/team/sm", //POST 团队扫码
-    // teamPass: "/admin/team/out", //POST 团队放行/团队手动输入 ID
     teamBind: "/admin/team/bind", // POST 团队码和签到码绑定
     teamStatus: "/admin/team/status", //GET 获取团队状态
   },
-  // user: {
-  //   userScanCode: "/admin/user/sm", //POST 用户扫码
-  //   userPass: "/admin/user/out", //POST 用户放行/用户手动输入 ID
-  // }
-
+  admin: {
+    adminSecret: "/admin/team/secret", //POST 验证管理员 接口封锁
+    routeDetail: "/admin/detail", //GET 路线查询
+  }
 };
 
 const BaseUrl = "https://walk.phlin.top/api/v1";

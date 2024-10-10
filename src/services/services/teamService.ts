@@ -3,18 +3,12 @@ import Taro from "@tarojs/taro";
 import apis from "../api/apis";
 import {TeamStatus} from "../../types/teamStatus";
 
+const jwt = useJwtStore();
+
 interface teamData {
   code_type: number,
   content: string
 }
-
-interface teamBindData {
-  team_id: number,
-  code: string,
-  type: number
-}
-
-const jwt = useJwtStore();
 
 async function getTeamStatus(
   data: teamData
@@ -34,7 +28,6 @@ async function getTeamStatus(
       console.error(res);
     }
   });
-  console.log(res);
   if (res.data.msg === "ok" ){
     console.log("get team data success");
     return res.data.data;
@@ -43,6 +36,12 @@ async function getTeamStatus(
     console.log("get team data failed");
     return false;
   }
+}
+
+interface teamBindData {
+  team_id: number,
+  code: string,
+  type: number
 }
 
 async function bindTeamCode(

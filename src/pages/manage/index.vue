@@ -3,7 +3,7 @@
     <view class="manageTitle">管理员: {{ admin.getName() }}</view>
     <view class="btnWrap" v-show="pageState === 0">
         <button class="btn" v-if="admin.getPoint() === 0" @tap="() => pageTo(1)">查看团队</button>
-        <button class="btn" v-if="admin.getPoint() === 0" @tap="() => pageTo(2)">管理功能</button>
+        <button class="btn" v-if="admin.getPoint() === 0" @tap="management">管理功能</button>
         <button class="btn" v-if="admin.getPoint() !== 0" @tap="checkIn">签到打卡</button>
         <button class="btn" v-if="admin.getPoint() !== 0" @tap="showStateModal">手动设置团队成员状态</button>
     </view>
@@ -13,7 +13,9 @@
         <button class="btn" @tap="() => pageTo(0)">返回</button>
     </view>
     <view class="btnWrap" v-show="pageState === 2">
-        
+        <button class="btn" @tap="">重组队伍</button>
+        <button class="btn" @tap="">直接提交团队</button>
+        <button class="btn" @tap="pageToStats">查看五条路线情况</button>
         <button class="btn" @tap="() => pageTo(0)">返回</button>
     </view>
 </view>
@@ -24,7 +26,8 @@ import "./index.css"
 import { useAdminStore } from '../../stores/admin';
 import Taro from "@tarojs/taro";
 import { ref } from "vue";
-import { wxScan } from "../../services/services/scanService";
+import { wxScan, wxModal } from "../../services/services/wxService";
+import { verifyPassword } from "../../services/services/adminService";
 
 const admin = useAdminStore();
 const pageState = ref(0); // 0为基础页 1为查看团队 2为管理功能
@@ -35,21 +38,23 @@ const checkIn = () => {
     });
 }
 
+const pageToStats = () => {
+    Taro.navigateTo({
+        url: "/pages/stats/index",
+    })
+}
+
 const pageTo = (page: number) => {
     pageState.value = page;
 }
 
 const showStateModal = () => {
-    wx.showModal({
-        editable: true,
+    wxModal({
         placeholderText: "团队ID",
-        success: (res) => {
-            if(res.confirm) {
-                //跳转团队信息
-                Taro.navigateTo({
-                    url: "/pages/teamInfo/index?code="+res.content+"&codeType=1",
-                });
-            }
+        success: (content) => {
+            Taro.navigateTo({
+                url: "/pages/teamInfo/index?code="+content+"&codeType=1",
+            });
         }
     })
 }
@@ -79,15 +84,25 @@ const inquiryByScan = () => {
 }
 
 const inquiryById = () => {
-    wx.showModal({
-        editable: true,
+    wxModal({
         placeholderText: "团队ID",
-        success: (res) => {
-            if(res.confirm) {
-                //跳转团队信息
-                Taro.navigateTo({
-                    url: "/pages/teamInfo/index?code="+res.content+"&codeType=1&showBind=true",
-                });
+        success: (content) => {
+            //跳转团队信息
+            Taro.navigateTo({
+                url: "/pages/teamInfo/index?code="+content+"&codeType=1&showBind=true",
+            });
+        },
+    })
+}
+
+const management = () => {
+    wxModal({
+        placeholderText: "管理员密码",
+        success: async (password) => {
+            if(await verifyPassword({secret: password})) {
+                pageTo(2);
+            } else {
+                Taro.showModal({title: "密码错误"});
             }
         }
     })
