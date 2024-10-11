@@ -1,3 +1,5 @@
+import Taro from "@tarojs/taro";
+
 interface wxScanData {
   success?: (code: string) => void,
   fail?: (errMsg: string) => void,
@@ -28,11 +30,19 @@ const wxModal = (data: wxModalData) => {
     editable: true,
     placeholderText: data.placeholderText,
     success: (res) => {
-        if(res.confirm) {
-            if(data.success) data.success(res.content);
-        }
-    }
-})
+          if(res.confirm) {
+              if(data.success) data.success(res.content);
+          }
+      }
+  })
 }
 
-export { wxScan, wxModal }
+//用于反馈网络错误
+const reportErrModal = (errMsg?: string) => {
+  Taro.showModal({
+    title: "网络错误",
+    content: errMsg,
+  })
+}
+
+export { wxScan, wxModal, reportErrModal }

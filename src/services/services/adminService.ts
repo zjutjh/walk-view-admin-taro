@@ -2,6 +2,7 @@ import {useJwtStore} from "../../stores/jwt";
 import Taro from "@tarojs/taro";
 import apis from "../api/apis";
 import { useAdminStore } from "../../stores/admin";
+import { reportErrModal } from "./wxService";
 
 const jwt = useJwtStore();
 const admin = useAdminStore();
@@ -26,7 +27,8 @@ const verifyPassword = async (
                 passwordRight = true;
                 admin.setSecret(data.secret);
             }
-        }
+        },
+        fail(res) { reportErrModal(res.errMsg); }
     })
     return passwordRight;
 }
@@ -50,7 +52,8 @@ const getRouteDetail = async (
             if(res.data.code === 200) {
                 resData = res.data.data;
             }
-        }
+        },
+        fail(res) { reportErrModal(res.errMsg); }
     })
     return resData;
 }

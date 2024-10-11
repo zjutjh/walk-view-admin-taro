@@ -2,6 +2,7 @@ import {useJwtStore} from "../../stores/jwt";
 import Taro from "@tarojs/taro";
 import apis from "../api/apis";
 import {TeamStatus} from "../../types/teamStatus";
+import { reportErrModal } from "./wxService";
 
 const jwt = useJwtStore();
 
@@ -24,9 +25,7 @@ async function getTeamStatus(
     success: function (resData) {
       res = resData;
     },
-    fail: function (res) {
-      console.error(res);
-    }
+    fail(res) { reportErrModal(res.errMsg); }
   });
   if (res.data.msg === "ok" ){
     console.log("get team data success");
@@ -67,9 +66,7 @@ async function bindTeamCode(
         })
       }
     },
-    fail: function (res) {
-      console.error(res);
-    }
+    fail(res) { reportErrModal(res.errMsg); }
   })
   return false;
 }
@@ -102,9 +99,7 @@ const commitTeam = async (
         })
       }
     },
-    fail: function (res) {
-      console.error(res);
-    }
+    fail(res) { reportErrModal(res.errMsg); }
   })
   return false;
 }

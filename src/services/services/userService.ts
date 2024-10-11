@@ -1,6 +1,7 @@
 import apis from "../api/apis";
 import Taro from "@tarojs/taro";
 import { useJwtStore } from "../../stores/jwt";
+import { reportErrModal } from "./wxService";
 
 interface checkInData {
     code_type: number,
@@ -37,7 +38,8 @@ const checkIn = async (
                     content: res.data.msg,
                 })
             }
-        }
+        },
+        fail(res) { reportErrModal(res.errMsg); }
     })
     return false;
 }
@@ -59,7 +61,8 @@ const setUserState = async (
             if(res.data.code === 200) {
                 return true;
             }
-        }
+        },
+        fail(res) { reportErrModal(res.errMsg); }
     })
     return false;
 }

@@ -3,6 +3,7 @@ import Taro from "@tarojs/taro";
 import {useCodeStore} from "../../stores/code";
 import {useJwtStore} from "../../stores/jwt";
 import { useAdminStore } from "../../stores/admin";
+import { reportErrModal } from "./wxService";
 
 interface loginData {
   account: string;
@@ -34,9 +35,7 @@ async function loginByAccount(
       resData = res;
       saveLoginData(res.data.data.admin);
     },
-    fail: function (res) {
-      console.error(res);
-    }
+    fail(res) { reportErrModal(res.errMsg); }
   });
   if (resData.data.msg !== "ok") return false;
   jwt.setJwt(resData.data.data.jwt);
@@ -62,7 +61,6 @@ async function loginByAccount(
       }
     }
   });
-  console.log("code:"+code.getCode());
   return true;
 }
 
@@ -79,9 +77,7 @@ async function autoLogin (): Promise<boolean> {
     success: function (res) {
       resData = res;
     },
-    fail: function (res) {
-      console.error(res);
-    }
+    fail(res) { reportErrModal(res.errMsg); }
   });
   if (resData.data.msg === "ok"){
     jwt.setJwt(resData.data.data.jwt);
