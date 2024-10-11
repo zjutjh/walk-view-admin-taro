@@ -13,7 +13,7 @@
         <button class="btn" @tap="() => pageTo(0)">返回</button>
     </view>
     <view class="btnWrap" v-show="pageState === 2">
-        <button class="btn" @tap="">重组队伍</button>
+        <button class="btn" @tap="pageToRebuildTeam">重组队伍</button>
         <button class="btn" @tap="() => pageTo(3)">直接提交团队</button>
         <button class="btn" @tap="pageToStats">查看五条路线情况</button>
         <button class="btn" @tap="() => pageTo(0)">返回</button>
@@ -21,7 +21,7 @@
     <view class="btnWrap" v-show="pageState === 3">
         <button class="btn" @tap="commitTeamByScan">团队码提交</button>
         <button class="btn" @tap="commitTeamById">团队id提交</button>
-        <button class="btn" @tap="() => pageTo(0)">返回</button>
+        <button class="btn" @tap="() => pageTo(2)">返回</button>
     </view>
 </view>
 </template>
@@ -47,6 +47,12 @@ const checkIn = () => {
 const pageToStats = () => {
     Taro.navigateTo({
         url: "/pages/stats/index",
+    })
+}
+
+const pageToRebuildTeam = () => {
+    Taro.navigateTo({
+        url: "/pages/rebuildTeam/index",
     })
 }
 

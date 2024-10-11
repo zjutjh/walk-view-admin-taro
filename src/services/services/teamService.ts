@@ -104,4 +104,39 @@ const commitTeam = async (
   return false;
 }
 
-export { getTeamStatus , bindTeamCode, commitTeam };
+interface rebuildTeamData {
+  jwts: string[],
+  secret: string,
+  route: number
+}
+
+const rebuildTeam = async (
+  data: rebuildTeamData
+): Promise<boolean> => {
+  let sucFlag = false;
+  await Taro.request({
+    method: "POST",
+    url: apis.team.rebuildTeam,
+    data: data,
+    header: {
+      "Authorization": "Bearer " + jwt.getJwt()
+    },
+    success: function (resData) {
+      if(resData.data.code === 200) {
+        wx.showModal({
+          title: "重组队伍成功"
+        })
+        sucFlag = true;
+      } else {
+        wx.showModal({
+          title: "重组队伍失败",
+          content: resData.data.msg,
+        })
+      }
+    },
+    fail(res) { reportErrModal(res.errMsg); }
+  })
+  return sucFlag;
+}
+
+export { getTeamStatus , bindTeamCode, commitTeam, rebuildTeam };

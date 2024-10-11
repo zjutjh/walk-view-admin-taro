@@ -2,7 +2,7 @@ export default {
   pages: [
     "pages/index/index",
     "pages/handleScanMember/index",
-    "pages/scanMember/index",
+    "pages/rebuildTeam/index",
     "pages/scanTeam/index",
     "pages/teamInfo/index",
     "pages/manage/index",

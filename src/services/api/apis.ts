@@ -12,6 +12,7 @@ const apis = {
     teamBind: "/admin/team/bind", // POST 团队码和签到码绑定
     teamStatus: "/admin/team/status", //GET 获取团队状态
     commitTeam: "/admin/team/submit", //POST 直接提交团队
+    rebuildTeam: "/admin/team/regroup", //POST 重组队伍
   },
   admin: {
     adminSecret: "/admin/team/secret", //POST 验证管理员 接口封锁
