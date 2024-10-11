@@ -74,4 +74,39 @@ async function bindTeamCode(
   return false;
 }
 
-export { getTeamStatus , bindTeamCode };
+interface commitTeamData {
+  team_id: number,
+  secret: string,
+}
+
+const commitTeam = async (
+  data: commitTeamData
+): Promise<boolean> => {
+  await Taro.request({
+    method: "POST",
+    url: apis.team.commitTeam,
+    data: data,
+    header: {
+      "Authorization": "Bearer " + jwt.getJwt()
+    },
+    success: function (resData) {
+      if(resData.data.code === 200) {
+        wx.showModal({
+          title: "提交成功"
+        })
+        return true;
+      } else {
+        wx.showModal({
+          title: "提交失败",
+          content: resData.data.msg,
+        })
+      }
+    },
+    fail: function (res) {
+      console.error(res);
+    }
+  })
+  return false;
+}
+
+export { getTeamStatus , bindTeamCode, commitTeam };
