@@ -59,11 +59,11 @@ export const useAdminStore = defineStore("admin",() => {
   const setSecret = (s: string) => { secret.value = s; };
   const getSecret = () => { return secret.value; };
   return { 
-    adminId, setAdminId, getAdminId,
-    name, setName, getName,
-    account, setAccount, getAccount,
-    point, setPoint, getPoint,
-    route, setRoute, getRoute,
-    secret, setSecret, getSecret,
+    setAdminId, getAdminId,
+    setName, getName,
+    setAccount, getAccount,
+    setPoint, getPoint,
+    setRoute, getRoute,
+    setSecret, getSecret,
    };
 });

@@ -145,7 +145,7 @@ const commitTeamById = () => {
         success: (content) => {
             commitTeam({
                 team_id: Number.parseInt(content),
-                secret: admin.getSecret+"",
+                secret: admin.getSecret()+"",
             })
         },
     })
