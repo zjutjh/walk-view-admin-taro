@@ -6,7 +6,7 @@
             <view class="table">
                 <view class="tr">
                     <view class="th">莫干山全程</view>
-                    <view class="td" v-for="num in statsData.mgsAll">{{ "100"+num }}</view>
+                    <view class="td" v-for="num in statsData.mgsAll">{{ num }}</view>
                 </view>
                 <view class="tr">
                     <view class="th">莫干山半程</view>
