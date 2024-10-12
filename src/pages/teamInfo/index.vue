@@ -26,20 +26,25 @@
       </view>
   </view>
   <view class="table-wrapper">
+    <view class="tips">
+      蓝色为学生 红色为教师
+    </view>
     <view class="table">
       <view class="tr">
         <view class="th">成员id</view>
         <view class="th">成员名称</view>
-        <view class="th">操作</view>
         <view class="th">成员状态</view>
+        <view class="th">操作</view>
       </view>
-      <view class="tr" v-for="(mem , index) in members" :key="index">
+      <view class="tr" :class="mem.type===1?'stuTr':'teaTr'" v-for="(mem , index) in members" :key="index">
         <view class="td">{{ index }}</view>
         <view class="td">{{mem.name}}</view>
-        <view class="td" :style="{
-          color: mem.status===0 ? 'red' : 'black'
-        }">{{walkStatus[mem.status]}}</view>
-        <view class="td" @tap="() => changeMemberState(mem.jwt, mem.status)">{{ userState[mem.status] }}</view>
+        <view class="td">{{walkStatus[mem.status]}}</view>
+        <view class="td pickerTd">
+          <picker mode="selector" :range="pickerState" @change="changeMemberState(mem.jwt, $event)">
+            {{ userState[mem.status] }}
+          </picker>
+        </view>
       </view>
     </view>
   </view>
@@ -68,6 +73,7 @@ const members = ref<memberStorageType[]>();
 const teamData = ref<TeamStatus>();
 const { router } = getCurrentInstance();
 const showBind = ref<boolean>(router?.params.showBind as boolean);
+const pickerState = ["继续走", "下撤"];
 
 const initData = async () => {
   const data = {
@@ -90,20 +96,12 @@ const initData = async () => {
   members.value = membersStore.getMembers();
 }
 
-const changeMemberState = async (openId: string, status: number) => {
-  //---------待更改----------
-  if(status === 5) { //完成
-    Taro.showModal({
-      title: "无法操作",
-      content: teamStatus[status]+"状态下无法操作",
-    })
-  } else { // 进行中 || 未开始
-    let suc = await setUserState({
-      user_id: openId,
-      status: status===4? 1 : 2, //状态待处理
-    })
-    if(suc) { initData(); }
-  }
+const changeMemberState = async (openId: string, e) => {
+  let suc = await setUserState({
+    user_id: openId,
+    status: Number.parseInt(e.detail.value)+1, //状态待处理
+  })
+  if(suc) { initData(); }
 }
 
 const teamBind = async () => {

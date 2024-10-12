@@ -47,6 +47,7 @@ const checkIn = async (
 const setUserState = async (
     data: setUserStateData
 ): Promise<boolean> => {
+    let sucFlag = false;
     await Taro.request({
         method: "POST",
         url: apis.user.setUserState,
@@ -57,14 +58,15 @@ const setUserState = async (
         success: (res) => {
             Taro.showModal({
                 title: res.data.code === 200?"操作成功":"操作失败",
+                content: res.data.msg,
             })
             if(res.data.code === 200) {
-                return true;
+                sucFlag = true;
             }
         },
         fail(res) { reportErrModal(res.errMsg); }
     })
-    return false;
+    return sucFlag;
 }
 
 export { checkIn, setUserState }
