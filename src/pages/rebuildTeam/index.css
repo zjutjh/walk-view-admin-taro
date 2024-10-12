@@ -28,8 +28,20 @@
 }
 
 .newMember {
+    position: relative;
     padding: 0.3rem;
     border-bottom: solid 2px black;
+}
+
+
+.deleteBtn {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    padding: 0.05rem;
+    border-radius: 2px;
+    border: solid 2px #313131;
+    background-color: #c7c7c7;
 }
 
 .campusPicker {

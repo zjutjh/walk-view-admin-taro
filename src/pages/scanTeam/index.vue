@@ -42,18 +42,14 @@ const get_scanCode = () => {
 
 const teamCheckIn = async (teamData: string) => {
   console.log(teamData);
-  // teamData = `{
-  //   "type": 2,
-  //   "code": 123
-  // }`;
-  //模拟参数
   const data = JSON.parse(teamData);
   console.log(data);
   code.value = data.code;
   codeType.value = data.type;
+  let content = data.type===1?data.team_id:data.code;
   await checkIn({
     code_type: data.type,
-    content: data.code+"",
+    content: content+"",
   })
 }
 </script>

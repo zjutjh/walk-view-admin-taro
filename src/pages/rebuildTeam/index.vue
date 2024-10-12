@@ -6,12 +6,13 @@
     <view class="membersWarp">
       <view class="newMember" v-for="(mem, index) in membersName">
         成员{{ index+1 }}id: {{ mem }}
+        <view class="deleteBtn" @tap="() => delMember(index)">删除</view>
       </view>
     </view>
     <picker mode="selector" :range="campus" @change="onChangeCampus" class="campusPicker">
       已选择{{ campus[chosenCampus] }}
     </picker>
-    <button class="btn" @click="rebuild" v-if="membersJwt && membersJwt.length>0">提交团队</button>
+    <button class="btn" @tap="rebuild" v-if="membersJwt && membersJwt.length>0">提交团队</button>
   </view>
 </template>
 
@@ -36,8 +37,20 @@ const addMember = () => {
   wxScan({
     success: (res) => {
       const data = JSON.parse(res);
-      if(membersJwt.value)membersJwt.value.push(data.jwt);
-      if(membersName.value)membersName.value.push(data.name);
+      let flag = true; // 查重
+      if(membersJwt.value && membersName.value) {
+        for(let i=0; i<membersJwt.value?.length; i++) {
+          if(membersJwt.value[i] === data.jwt) flag = false;
+        }
+        if(flag) {
+          membersJwt.value.push(data.jwt);
+          membersName.value.push(data.name);
+        } else {
+          Taro.showModal({
+            title: "重复扫码"
+          })
+        }
+      }
     },
     fail: (errMsg) => {
       Taro.showModal({
@@ -48,12 +61,22 @@ const addMember = () => {
   })
 }
 
-const rebuild = () => {
-  rebuildTeam({
+const delMember = (index: number) => {
+  membersJwt.value?.splice(index, 1);
+  membersName.value?.splice(index, 1);
+}
+
+const rebuild = async () => {
+  const suc = await rebuildTeam({
     jwts: membersJwt.value as string[],
     secret: admin.getSecret()+"",
     route: 1+chosenCampus.value,
   })
+  if(suc) {
+    Taro.navigateTo({
+      url: "/pages/manage/index"
+    })
+  }
 }
 
 const onChangeCampus = (e) => {

@@ -77,7 +77,7 @@ const inquiryByScan = () => {
             const data = JSON.parse(code);
             if(data.type === 1) {
                 Taro.navigateTo({
-                    url: "/pages/teamInfo/index?code="+data.code+"&codeType=1"+"&showBind=true",
+                    url: "/pages/teamInfo/index?code="+data.team_id+"&codeType=1"+"&showBind=true",
                 });
             } else {
                 Taro.showModal({
@@ -126,7 +126,7 @@ const commitTeamByScan = () => {
             const data = JSON.parse(code);
             if(data.type === 1) {
                 commitTeam({
-                    team_id: data.code,
+                    team_id: data.team_id,
                     secret: admin.getSecret+"",
                 })
             } else {
