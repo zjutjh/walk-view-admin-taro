@@ -26,6 +26,10 @@ const saveLoginData = (resAdmin: any) => {
 async function loginByAccount(
   data: loginData
 ): Promise<boolean> {
+  Taro.showLoading({
+    title: "登录中",
+    mask: true,
+  });
   let resData;
   await Taro.request({
     method: "POST",
@@ -37,7 +41,10 @@ async function loginByAccount(
     },
     fail(res) { reportErrModal(res.errMsg); }
   });
-  if (resData.data.msg !== "ok") return false;
+  if (resData.data.msg !== "ok"){ 
+    Taro.hideLoading();
+    return false;
+  }
   jwt.setJwt(resData.data.data.jwt);
 
   //绑定自动登录
@@ -61,11 +68,16 @@ async function loginByAccount(
       }
     }
   });
+  Taro.hideLoading();
   return true;
 }
 
 //自动登录
 async function autoLogin (): Promise<boolean> {
+  Taro.showLoading({
+    title: "自动登录中",
+    mask: true,
+  });
   const code = useCodeStore();
   let resData;
   await Taro.request({
@@ -83,8 +95,19 @@ async function autoLogin (): Promise<boolean> {
     jwt.setJwt(resData.data.data.jwt);
     saveLoginData(resData.data.data.admin);
     console.log("auto login success");
+
+    //重制code登录凭证
+    Taro.login({
+      success: (res) => {
+        if(res.code) {
+          code.setCode(res.code);
+        }
+      }
+    })
+    Taro.hideLoading();
     return true;
   }
+  Taro.hideLoading();
   return false;
 }
 

@@ -38,7 +38,6 @@ async function login(){
 
 onMounted(async () => {
   const code = useCodeStore();
-  // console.log("code:"+code.getCode());
   if (code.getCode() === "") return;
   else if (!await autoLogin()) {
     await Taro.showModal({

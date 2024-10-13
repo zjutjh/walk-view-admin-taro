@@ -7,7 +7,7 @@
   align-items: center;
 }
 
-.table {
+.statsTableWrapper .table {
   display: flex;
   flex-direction: column;     /* 排列形式: 向下 */
   margin-top: 50px;
@@ -15,27 +15,41 @@
   overflow-y: scroll;
 }
 
-.tr {
+.statsTableWrapper .table .tr {
   white-space: nowrap;
 }
 
-.th, .td {
-  display: inline-block;
-  margin: 0 auto;
+.statsTableWrapper .table .tr .th {
   width: 6rem;
+  font-weight: 800;           /* 字体加重 */
+  background-color:#B3CCF4;   /* 背景色 */
+  display: inline-block;
+  padding: 0 0.2rem;
   text-align: center;         /* 文本居中 */
   justify-content:center;     /* 主轴居中 */
   align-items: center;        /* 交叉轴居中 */
   border: 1px solid #dadada;      /* 单元格上线框 */
 }
 
-.th {
-  width: 6rem;
-  font-weight: 800;           /* 字体加重 */
-  background-color:#B3CCF4;   /* 背景色 */
+.statsTableWrapper .table .tr .td {
+  width: 5rem;
+  background-color:#edf3e9;   /* 背景色 */
+  display: inline-block;
+  padding: 0 0.2rem;
+  text-align: center;         /* 文本居中 */
+  justify-content:center;     /* 主轴居中 */
+  align-items: center;        /* 交叉轴居中 */
+  border: 1px solid #dadada;      /* 单元格上线框 */
 }
 
-.td {
-  width: 1.8rem;
-  background-color:#edf3e9;   /* 背景色 */
+.statsTableWrapper .table .tr .td:nth-of-type(2) {
+  background-color: #df7979;
+}
+
+.statsTableWrapper .table .tr .td:nth-of-type(3) {
+  background-color: #f4f2b3;
+}
+
+.statsTableWrapper .table .tr .td:last-of-type {
+  background-color: #b3f4b4;
 }
