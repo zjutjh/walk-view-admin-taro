@@ -16,6 +16,13 @@ const wxScan = async (data: wxScanData) => {
         success: function(t) {
           if(t.errMsg === "scanCode:ok") {
             //二维码读取成功
+            if(!isValidJSON(t.result)) {
+              Taro.showModal({
+                title: "二维码有误",
+                content: "json解析错误"
+              })
+              return false;
+            }
             if(data.success) { data.success(t.result) }
           } else {
             //二维码读取失败
@@ -23,6 +30,16 @@ const wxScan = async (data: wxScanData) => {
           }
         }
     });
+}
+
+const isValidJSON = (jsonString: string) => {
+  try{
+    JSON.parse(jsonString);
+    return true;
+  } catch(e) {
+    console.log(e);
+    return false;
+  }
 }
 
 const wxModal = (data: wxModalData) => {

@@ -111,6 +111,7 @@ const teamBind = async () => {
     success: () => {
         wxScan({
           success: (code) => {
+            console.log(code);
             const checkCodeJson = JSON.parse(code); //签到码json
             bindTeamCode({
               team_id: Number.parseInt(router?.params.code as string),
