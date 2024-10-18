@@ -13,3 +13,10 @@
 .btnWrap .btn {
     margin-bottom: 0.5rem;
 }
+
+.operationTitle {
+    font-size: large;
+    text-align: center;
+
+    margin: 1rem;
+}

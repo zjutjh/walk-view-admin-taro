@@ -139,4 +139,38 @@ const rebuildTeam = async (
   return sucFlag;
 }
 
-export { getTeamStatus , bindTeamCode, commitTeam, rebuildTeam };
+interface verifyTeamData {
+  team_id: number,
+  status: number
+}
+
+const verifyTeamDestination = async (
+  data: verifyTeamData
+): Promise<boolean> => {
+  let sucFlag = false;
+  await Taro.request({
+    method: "POST",
+    url: apis.team.verifyTeam,
+    data: data,
+    header: {
+      "Authorization": "Bearer " + jwt.getJwt()
+    },
+    success: function (resData) {
+      if(resData.data.code === 200) {
+        wx.showModal({
+          title: "确认队伍成功"
+        })
+        sucFlag = true;
+      } else {
+        wx.showModal({
+          title: "确认队伍失败",
+          content: resData.data.msg,
+        })
+      }
+    },
+    fail(res) { reportErrModal(res.errMsg); }
+  })
+  return sucFlag;
+}
+
+export { getTeamStatus , bindTeamCode, commitTeam, rebuildTeam ,verifyTeamDestination};
