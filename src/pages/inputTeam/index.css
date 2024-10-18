@@ -1,0 +1,13 @@
+.scanTips {
+    margin: 4rem;
+    font-size: small;
+    color: rgb(93, 93, 93);
+}
+
+.scanTeamWrap {
+    margin: 2rem;
+}
+
+.btnScan {
+    margin-bottom: 0.5rem;
+}

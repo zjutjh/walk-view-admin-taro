@@ -6,7 +6,7 @@
       <button class="btn" v-if="admin.getPoint() === 0" @tap="() => pageTo(4)">终点操作</button>
       <button class="btn" v-if="admin.getPoint() === 0" @tap="management">管理功能</button>
       <button class="btn" v-if="admin.getPoint() !== 0" @tap="checkIn">扫码签到</button>
-      <button class="btn" v-if="admin.getPoint() !== 0" @tap="showStateModal">输入签到</button>
+      <button class="btn" v-if="admin.getPoint() !== 0" @tap="inputIn">输入签到</button>
     </view>
     <view class="btnWrap" v-show="pageState === 1">
       <view class="operationTitle">起点操作</view>
@@ -22,7 +22,7 @@
       <button class="btn" @tap="() => pageTo(0)">返回</button>
     </view>
     <view class="btnWrap" v-show="pageState === 3">
-      <view class="operationTitle">扫码签到</view>
+      <view class="operationTitle">直接提交团队</view>
       <button class="btn" @tap="commitTeamByScan">团队码提交</button>
       <button class="btn" @tap="commitTeamById">团队id提交</button>
       <button class="btn" @tap="() => pageTo(2)">返回</button>
@@ -54,6 +54,12 @@ const checkIn = () => {
     });
 }
 
+const inputIn = () => {
+  Taro.navigateTo({
+    url: "/pages/inputTeam/index",
+  });
+}
+
 const pageToStats = () => {
     Taro.navigateTo({
         url: "/pages/stats/index",
@@ -70,16 +76,6 @@ const pageTo = (page: number) => {
     pageState.value = page;
 }
 
-const showStateModal = () => {
-    wxModal({
-        placeholderText: "团队ID",
-        success: (content) => {
-            Taro.navigateTo({
-                url: "/pages/teamInfo/index?code="+content+"&codeType=1",
-            });
-        }
-    })
-}
 
 const inquiryByScan = () => {
     wxScan({
