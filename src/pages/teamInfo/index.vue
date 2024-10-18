@@ -24,6 +24,10 @@
           <text class="left">{{"队伍状态"}}</text>
           <text class="right">{{teamStatus[teamData.team.status]}}</text>
       </view>
+    <view v-show="verify" class="team-info">
+      <text class="left">{{"上一点位信息"}}</text>
+      <text class="right">{{teamData.team.point}}</text>
+    </view>
   </view>
   <view class="table-wrapper">
     <view class="tips">
@@ -49,6 +53,9 @@
     </view>
   </view>
   <button v-show="showBind" @tap="teamBind">团队绑定</button>
+  <picker v-show="verify" mode="selector" :range="verifyStatus" @change="verifyTeam(teamData.team.id, $event)">
+    <button>终点确认</button>
+  </picker>
 </view>
 </template>
 
@@ -62,6 +69,7 @@ import Taro from "@tarojs/taro";
 import { getCurrentInstance } from "@tarojs/runtime";
 import { setUserState } from "../../services/services/userService";
 import { bindTeamCode } from "../../services/services/teamService";
+import { verifyTeamDestination } from "../../services/services/teamService";
 import { wxScan } from "../../services/services/wxService";
 
 const teamStatus: string[] = ["未开始","未开始","进行中","扫码成功","放弃","完成"];
@@ -73,14 +81,16 @@ const members = ref<memberStorageType[]>();
 const teamData = ref<TeamStatus>();
 const { router } = getCurrentInstance();
 const showBind = ref<boolean>(router?.params.showBind as boolean);
+const verify =  ref<boolean>(router?.params.verifyData);
 const pickerState = ["继续走", "下撤"];
+const verifyStatus = ["同意", "拒绝"];
 
 const initData = async () => {
   const data = {
     code_type: router?.params.codeType as number,
     content: router?.params.code+"",
   };
-  
+
   let resdata = await getTeamStatus(data);
   if(!resdata) {
     await Taro.showModal({
@@ -128,6 +138,15 @@ const teamBind = async () => {
         })
     }
   })
+}
+
+
+const verifyTeam = async (id: number, e) =>{
+  let suc = await verifyTeamDestination({
+    team_id: id,
+    status: Number.parseInt(e.detail.value)+1, //状态待处理
+  })
+  if(suc) { initData(); }
 }
 
 onMounted(initData);
