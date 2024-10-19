@@ -40,15 +40,14 @@
         <view class="td">{{ index }}</view>
         <view class="td">{{mem.name}}</view>
         <view class="td">{{walkStatus[mem.status]}}</view>
-        <view class="td pickerTd">
-          <picker mode="selector" :range="pickerState" @change="changeMemberState(mem.jwt, $event)">
-            {{ userState[mem.status] }}
-          </picker>
+        <view class="td pickerTd" @tap="() => changeMemberState(mem.jwt)">
+          {{ userState[mem.status] }}
         </view>
       </view>
     </view>
   </view>
   <button v-show="showBind" @tap="teamBind">团队绑定</button>
+  <button v-show="showBind" @tap="allMembersArrived">全部签到</button>
 </view>
 </template>
 
@@ -73,7 +72,6 @@ const members = ref<memberStorageType[]>();
 const teamData = ref<TeamStatus>();
 const { router } = getCurrentInstance();
 const showBind = ref<boolean>(router?.params.showBind as boolean);
-const pickerState = ["继续走", "下撤"];
 
 const initData = async () => {
   const data = {
@@ -96,11 +94,40 @@ const initData = async () => {
   members.value = membersStore.getMembers();
 }
 
-const changeMemberState = async (openId: string, e) => {
-  let suc = await setUserState({
-    user_id: openId,
-    status: Number.parseInt(e.detail.value)+1, //状态待处理
+const allMembersArrived = async () => {
+  let membersData;
+  if(members.value) {
+    membersData = [];
+    for(let i=0; i<members.value.length; i++) {
+      membersData.push({
+        user_id: members.value[i].jwt,
+        status: 1,
+      })
+    }
+    let suc = await setUserState({list: membersData});
+    let title;
+    if(suc) title = "全部签到成功";
+    else title = "签到失败";
+    Taro.showModal({title: title});
+  }
+  initData();
+}
+
+const changeMemberState = async (openId: string) => {
+  let choice;
+  await Taro.showModal({
+    title: "选择成员状态",
+    confirmText: "继续走",
+    cancelText: "下撤",
+    success: (res) => {
+      if(res.confirm) choice = 1; //继续走
+      else choice = 2; //下撤
+    }
   })
+  let suc = await setUserState({list: [{
+    user_id: openId,
+    status: choice, //状态待处理
+  }]})
   if(suc) { initData(); }
 }
 

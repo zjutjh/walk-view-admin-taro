@@ -37,7 +37,6 @@ async function loginByAccount(
     data: data,
     success: function (res) {
       resData = res;
-      saveLoginData(res.data.data.admin);
     },
     fail(res) { reportErrModal(res.errMsg); }
   });
@@ -46,6 +45,7 @@ async function loginByAccount(
     return false;
   }
   jwt.setJwt(resData.data.data.jwt);
+  saveLoginData(resData.data.data.admin);
 
   //绑定自动登录
   await Taro.login({

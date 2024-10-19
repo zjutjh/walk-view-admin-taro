@@ -9,8 +9,10 @@ interface checkInData {
 }
 
 interface setUserStateData {
-    user_id: string, //openid
-    status: number,
+    list: {
+        user_id: string, //openid
+        status: number,
+    }[]
 }
 
 const jwt = useJwtStore();
@@ -56,10 +58,6 @@ const setUserState = async (
             "Authorization": "Bearer " + jwt.getJwt()
         },
         success: (res) => {
-            Taro.showModal({
-                title: res.data.code === 200?"操作成功":"操作失败",
-                content: res.data.msg,
-            })
             if(res.data.code === 200) {
                 sucFlag = true;
             }

@@ -2,7 +2,7 @@
 <view>
     <view class="manageTitle">管理员: {{ admin.getName() }}</view>
     <view class="btnWrap" v-show="pageState === 0">
-        <button class="btn" v-if="admin.getPoint() === 0" @tap="() => pageTo(1)">查看团队</button>
+        <button class="btn" v-if="admin.getPoint() === 0" @tap="() => pageTo(1)">起点操作</button>
         <button class="btn" v-if="admin.getPoint() === 0" @tap="management">管理功能</button>
         <button class="btn" v-if="admin.getPoint() !== 0" @tap="checkIn">签到打卡</button>
         <button class="btn" v-if="admin.getPoint() !== 0" @tap="showStateModal">手动设置团队成员状态</button>
