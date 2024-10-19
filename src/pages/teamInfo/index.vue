@@ -1,9 +1,9 @@
 <template>
 <view class="content-wrapper">
-  <text class="title">
+  <text class="title" v-if="teamData">
         {{teamData.admin.name + "管理员"}}
   </text>
-  <view class="team-info-wrapper">
+  <view class="team-info-wrapper" v-if="teamData">
       <view class="team-info">
            <text class="left">{{"队伍id"}}</text>
            <text class="right">{{teamData.team.id}}</text>
@@ -24,31 +24,37 @@
           <text class="left">{{"队伍状态"}}</text>
           <text class="right">{{teamStatus[teamData.team.status]}}</text>
       </view>
+    <view v-show="verify" class="team-info">
+      <text class="left">{{"上一点位信息"}}</text>
+      <text class="right">{{teamData.team.point}}</text>
+    </view>
   </view>
   <view class="table-wrapper">
+    <view class="tips">
+      蓝色为学生 红色为教师
+    </view>
     <view class="table">
       <view class="tr">
         <view class="th">成员id</view>
         <view class="th">成员名称</view>
+        <view class="th">成员状态</view>
         <view class="th">操作</view>
       </view>
-      <view class="tr" v-for="(mem , index) in members" :key="index">
+      <view class="tr" :class="mem.type===1?'stuTr':'teaTr'" v-for="(mem , index) in members" :key="index">
         <view class="td">{{ index }}</view>
         <view class="td">{{mem.name}}</view>
-        <view class="td" :style="{
-          color: mem.status===0 ? 'red' : 'white'
-        }">{{walkStatus[mem.status]}}</view>
+        <view class="td">{{walkStatus[mem.status]}}</view>
+        <view class="td pickerTd" @tap="() => changeMemberState(mem.jwt)">
+          {{ userState[mem.status] }}
+        </view>
       </view>
     </view>
   </view>
-  <view class="button-wrapper">
-    <view>
-      <button class="child" type="submit" @tap="login">登录</button>
-      <button class="child" type="submit" @tap="login">登录</button>
-      <button class="child" type="submit" @tap="login">登录</button>
-      <button class="child" type="submit" @tap="login">登录</button>
-    </view>
-  </view>
+  <button v-show="showBind" @tap="teamBind">团队绑定</button>
+  <button v-show="showBind" @tap="allMembersArrived">全部签到</button>
+  <picker v-show="verify" mode="selector" :range="verifyStatus" @change="verifyTeam(teamData?teamData.team.id:-1, $event)">
+    <button>终点确认</button>
+  </picker>
 </view>
 </template>
 
@@ -58,107 +64,33 @@ import {onMounted, ref} from "vue";
 import {TeamStatus} from "../../types/teamStatus";
 import {memberStorageType, useMembersStore} from "../../stores/members";
 import {getTeamStatus} from "../../services/services/teamService";
-import Taro, {useDidShow} from "@tarojs/taro";
+import Taro from "@tarojs/taro";
+import { getCurrentInstance } from "@tarojs/runtime";
+import { setUserState } from "../../services/services/userService";
+import { bindTeamCode } from "../../services/services/teamService";
+import { verifyTeamDestination } from "../../services/services/teamService";
+import { wxScan } from "../../services/services/wxService";
+
 const teamStatus: string[] = ["未开始","未开始","进行中","扫码成功","放弃","完成"];
 const route: string[] = ["朝晖路线","屏峰半程","屏峰全程","莫干山半程","莫干山全程"];
-const walkStatus: string[] = ["未处理","以扫码放行","已放弃"];
+const walkStatus: string[] = ["", "未开始", "进行中", "扫码成功", "放弃", "完成"];
+const userState: string[] = ["", "成员未到", "下撤", "下撤", "取消下撤", "已完成"];
 const membersStore = useMembersStore();
 const members = ref<memberStorageType[]>();
-const teamData = ref<TeamStatus | boolean >();
+const teamData = ref<TeamStatus>();
+const { router } = getCurrentInstance();
+const showBind = ref<boolean>(router?.params.showBind as boolean);
+const verify =  ref<boolean>(router?.params.verifyData as boolean);
+const verifyStatus = ["同意", "拒绝"];
 
-useDidShow(async () => {
+const initData = async () => {
   const data = {
-    team_id: 1
+    code_type: router?.params.codeType as number,
+    content: router?.params.code+"",
   };
-  teamData.value = await getTeamStatus(data);
-  if(!teamData.value) {
-    await Taro.showModal({
-      title: "获取团队信息失败!",
-      content: "权限不够或者登录有误!"
-    });
-    await Taro.navigateTo({
-      url: "/pages/scanTeam/index"
-    });
-  }
-  membersStore.initMembers(teamData.value["member"]);
-  members.value = membersStore.getMembers();
-  console.log(members);
-});
 
-onMounted(async () => {
-  // teamData.value = ref<TeamStatus | boolean >({ "admin": {
-  //   "admin_id": 1,
-  //   "name": "屏峰半程1号点",
-  //   "account": "crk",
-  //   "point": 1,
-  //   "route": 5
-  // },
-  // "member": [
-  //   {
-  //     "campus": 1,
-  //     "contact": {
-  //       "qq": "",
-  //       "tel": "19857313952",
-  //       "wechat": ""
-  //     },
-  //     "gender": 1,
-  //     "name": "甘凯哲",
-  //     "open_id": "+XUVWF1AwdFaW2aC4N8GRFVU8Rw8GJlwrML0H1wpij0=",
-  //     "walk_status": 4
-  //   },
-  //   {
-  //     "campus": 2,
-  //     "contact": {
-  //       "qq": "222",
-  //       "tel": "19857311393",
-  //       "wechat": "111"
-  //     },
-  //     "gender": 1,
-  //     "name": "惜寞",
-  //     "open_id": "4dag8rtffEmI5JCzj0JuKO19a2AK4c1+8DF4kYbfDtA=",
-  //     "walk_status": 4
-  //   },
-  //   {
-  //     "campus": 1,
-  //     "contact": {
-  //       "qq": "",
-  //       "tel": "19857313956",
-  //       "wechat": ""
-  //     },
-  //     "gender": 2,
-  //     "name": "麻长坤",
-  //     "open_id": "IpV/Ug177rOKmRaPEWZI2mPDQMEz5DFmpc/7uNXNIcY=",
-  //     "walk_status": 4
-  //   },
-  //   {
-  //     "campus": 2,
-  //     "contact": {
-  //       "qq": "357",
-  //       "tel": "13758285854",
-  //       "wechat": "159"
-  //     },
-  //     "gender": 2,
-  //     "name": "zhull",
-  //     "open_id": "YLRz+VvxsJSxHmkA2t2FuiluA5wm1oagCkHrJdKBFPM=",
-  //     "walk_status": 2
-  //   }
-  // ],
-  // "team": {
-  //   "allow_match": false,
-  //   "id": 4,
-  //   "name": "精弘网络",
-  //   "password": "114514",
-  //   "point": 0,
-  //   "route": 4,
-  //   "slogan": "派大星",
-  //   "start_num": 1,
-  //   "status": 2
-  // }});
-  const data = {
-    team_id: 1
-  };
-  teamData.value = await getTeamStatus(data);
-  if(!teamData.value) {
+  let resdata = await getTeamStatus(data);
+  if(!resdata) {
     await Taro.showModal({
       title: "获取团队信息失败!",
       content: "权限不够或者登录有误!"
@@ -167,8 +99,83 @@ onMounted(async () => {
       url: "pages/scanTeam/index"
     });
   }
+  teamData.value = resdata as TeamStatus;
   membersStore.initMembers(teamData.value["member"]);
   members.value = membersStore.getMembers();
-  console.log(members);
-});
+}
+
+const allMembersArrived = async () => {
+  let membersData;
+  if(members.value) {
+    membersData = [];
+    for(let i=0; i<members.value.length; i++) {
+      membersData.push({
+        user_id: members.value[i].jwt,
+        status: 1,
+      })
+    }
+    let suc = await setUserState({list: membersData});
+    let title;
+    if(suc) title = "全部签到成功";
+    else title = "签到失败";
+    Taro.showModal({title: title});
+  }
+  initData();
+}
+
+const changeMemberState = async (openId: string) => {
+  let choice;
+  await Taro.showModal({
+    title: "选择成员状态",
+    confirmText: "继续走",
+    cancelText: "下撤",
+    success: (res) => {
+      if(res.confirm) choice = 1; //继续走
+      else choice = 2; //下撤
+    }
+  })
+  let suc = await setUserState({list: [{
+    user_id: openId,
+    status: choice, //状态待处理
+  }]})
+  if(suc) { initData(); }
+}
+
+const teamBind = async () => {
+  wx.showModal({
+    title: "签到码",
+    content: "请扫签到码",
+    success: () => {
+        wxScan({
+          success: (code) => {
+            console.log(code);
+            const checkCodeJson = JSON.parse(code); //签到码json
+            bindTeamCode({
+              team_id: Number.parseInt(router?.params.code as string),
+              code: checkCodeJson.code+"",
+              type: checkCodeJson.type,
+            })
+          },
+          fail: (errMsg) => {
+            Taro.showModal({
+              title: "扫码失败!",
+              content: errMsg,
+            })
+          }
+        })
+    }
+  })
+}
+
+
+const verifyTeam = async (id: number, e) =>{
+  let suc = await verifyTeamDestination({
+    team_id: id,
+    status: Number.parseInt(e.detail.value)+1, //状态待处理
+  })
+  if(suc) { initData(); }
+}
+
+onMounted(initData);
+
 </script>

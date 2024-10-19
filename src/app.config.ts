@@ -2,14 +2,18 @@ export default {
   pages: [
     "pages/index/index",
     "pages/handleScanMember/index",
-    "pages/scanMember/index",
+    "pages/rebuildTeam/index",
     "pages/scanTeam/index",
+    "pages/inputTeam/index",
     "pages/teamInfo/index",
+    "pages/manage/index",
+    "pages/stats/index",
   ],
   window: {
     backgroundTextStyle: "light",
     navigationBarBackgroundColor: "#fff",
     navigationBarTitleText: "WeChat",
-    navigationBarTextStyle: "black"
-  }
+    navigationBarTextStyle: "black",
+  },
+  lazyCodeLoading: "requiredComponents"
 };

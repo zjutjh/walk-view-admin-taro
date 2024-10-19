@@ -3,7 +3,7 @@
   <text class="title">毅行管理员登录</text>
   <input class="login-input" type="text" placeholder="请输入账号" v-model="account"/>
   <input class="login-input" type="text" placeholder="请输入密码" v-model="password"/>
-  <button class="login-button" type="submit" @tap="login">登录</button>
+  <button class="login-button" @tap="login">登录</button>
 </view>
 </template>
 
@@ -27,7 +27,7 @@ async function login(){
   if(res) {
     console.log("login success");
     await Taro.navigateTo({
-      url: "/pages/scanTeam/index"
+      url: "/pages/manage/index"
     });
   }
   else await Taro.showModal({
@@ -38,7 +38,6 @@ async function login(){
 
 onMounted(async () => {
   const code = useCodeStore();
-  console.log("code:"+code.getCode());
   if (code.getCode() === "") return;
   else if (!await autoLogin()) {
     await Taro.showModal({
@@ -47,7 +46,7 @@ onMounted(async () => {
     });
   } else {
     await Taro.navigateTo({
-      url: "/pages/scanTeam/index"
+      url: "/pages/manage/index"
     });
     console.log("login by mounted");
   }

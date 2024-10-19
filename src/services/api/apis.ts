@@ -4,19 +4,24 @@ const apis = {
     auto: "/admin/auth/auto", //POST 自动登录
     bind: "/admin/auth", //POST 管理员登录
   },
-  team: {
-    teamScanCode: "/admin/team/sm", //POST 团队扫码
-    teamPass: "/admin/team/out", //POST 团队放行/团队手动输入 ID
-    teamStatus: "/admin/team/status", //GET 获取团队状态
-  },
   user: {
-    userScanCode: "/admin/user/sm", //POST 用户扫码
-    userPass: "/admin/user/out", //POST 用户放行/用户手动输入 ID
+    scanCheckInCode: "/admin/team/update", //POST 扫码签到
+    setUserState: "/admin/team/user_status" //POST 设置用户状态
+  },
+  team: {
+    teamBind: "/admin/team/bind", // POST 团队码和签到码绑定
+    teamStatus: "/admin/team/status", //GET 获取团队状态
+    commitTeam: "/admin/team/submit", //POST 直接提交团队
+    rebuildTeam: "/admin/team/regroup", //POST 重组队伍
+    verifyTeam: "/admin/team/destination", //POST 终点确认
+  },
+  admin: {
+    adminSecret: "/admin/team/secret", //POST 验证管理员 接口封锁
+    routeDetail: "/admin/detail", //GET 路线查询
   }
-
 };
 
-const BaseUrl = "https://walk-back.ximo210.top/api/v1";
+const BaseUrl = "https://walk.phlin.top/api/v1";
 
 function appendHost(api: any) {
   for (const key in api)
