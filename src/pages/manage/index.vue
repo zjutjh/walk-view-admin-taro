@@ -19,6 +19,7 @@
       <button class="btn" @tap="pageToRebuildTeam">重组队伍</button>
       <button class="btn" @tap="() => pageTo(3)">直接提交团队</button>
       <button class="btn" @tap="pageToStats">查看五条路线情况</button>
+      <button class="btn" @tap="pageToApplication">查看报名信息</button>
       <button class="btn" @tap="() => pageTo(0)">返回</button>
     </view>
     <view class="btnWrap" v-show="pageState === 3">
@@ -61,15 +62,21 @@ const inputIn = () => {
 }
 
 const pageToStats = () => {
-    Taro.navigateTo({
-        url: "/pages/stats/index",
-    })
+  Taro.navigateTo({
+    url: "/pages/stats/index",
+  })
 }
 
 const pageToRebuildTeam = () => {
-    Taro.navigateTo({
-        url: "/pages/rebuildTeam/index",
-    })
+  Taro.navigateTo({
+    url: "/pages/rebuildTeam/index",
+  })
+}
+
+const pageToApplication = () => {
+  Taro.navigateTo({
+    url: "/pages/applicationInfo/index",
+  })
 }
 
 const pageTo = (page: number) => {

@@ -17,11 +17,12 @@ const apis = {
   },
   admin: {
     adminSecret: "/admin/team/secret", //POST 验证管理员 接口封锁
-    routeDetail: "/admin/detail", //GET 路线查询
+    routeDetail: "/admin/detail", //GET 路线人数查询
+    submitDetail: "/admin/submit" //GET 报名人数查询
   }
 };
 
-const BaseUrl = "https://walk.phlin.top/api/v1";
+const BaseUrl = "https://test.phlin.top/api/v1";
 
 function appendHost(api: any) {
   for (const key in api)

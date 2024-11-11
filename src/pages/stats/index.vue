@@ -54,10 +54,8 @@ const maxLength = computed(() => {
 })
 
 onBeforeMount(async () => {
-    console.log(await verifyPassword({ secret: admin.getSecret()+""}));
-    if(true) { //确认密码正确性
+    if(await verifyPassword({ secret: admin.getSecret()+""})) { //确认密码正确性
         statsData.value = await getRouteDetail({secret: admin.getSecret()+""});
-        console.log(statsData);
     }
 })
 

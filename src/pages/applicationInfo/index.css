@@ -1,0 +1,45 @@
+.appInfoTitle {
+    text-align: center;
+    font-size: large;
+    font-weight: bold;
+}
+
+.appInfoTableHeader {
+    display: flex;
+}
+
+.appInfoTableHeader .cell {
+    width: 6rem;
+    height: 1.6rem;
+    text-align: center;
+    background-color: #3e8fd6;
+    border-top: solid 2px #2b2564;
+    border-left: solid 2px #2b2564;
+}
+
+.appInfoWrap1 {
+    border-bottom: solid 2px #2b2564;
+    border-right: solid 2px #2b2564;
+}
+
+.appInfoWrap2 {
+    display: flex;
+}
+
+.appInfoWrap2 .cellRoute {
+    width: 6rem;
+    height: 1.6rem;
+    text-align: center;
+    background-color: #8ab2d5;
+    border-top: solid 2px #2b2564;
+    border-left: solid 2px #2b2564;
+}
+
+.appInfoWrap2 .cell {
+    width: 6rem;
+    height: 1.6rem;
+    text-align: center;
+    background-color: #8ab2d5;
+    border-top: solid 2px #2b2564;
+    border-left: solid 2px #2b2564;
+}
