@@ -20,14 +20,18 @@
           <text class="left">{{"队伍人数"}}</text>
           <text class="right">{{teamData.member.length}}</text>
       </view>
+      <view v-show="!verify" class="team-info">
+          <text class="left">{{"队伍位置"}}</text>
+          <text class="right">{{teamData.team.point}}</text>
+      </view>
       <view class="team-info">
           <text class="left">{{"队伍状态"}}</text>
           <text class="right">{{teamStatus[teamData.team.status]}}</text>
       </view>
-    <view v-show="verify" class="team-info">
-      <text class="left">{{"上一点位信息"}}</text>
-      <text class="right">{{teamData.team.point}}</text>
-    </view>
+      <view v-show="verify" class="team-info">
+        <text class="left">{{"上一点位信息"}}</text>
+        <text class="right">{{teamData.team.point}}</text>
+      </view>
   </view>
   <view class="table-wrapper">
     <view class="tips">
@@ -165,6 +169,7 @@ const teamBind = async () => {
         })
     }
   })
+  initData();
 }
 
 

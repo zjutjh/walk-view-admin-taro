@@ -30,7 +30,7 @@
     </view>
     <view class="btnWrap" v-show="pageState === 4">
       <view class="operationTitle">终点操作</view>
-      <button class="btn" @tap="verifyTeamByScan">团队码查询</button>
+      <button class="btn" @tap="verifyTeamByScan">二维码查询</button>
       <button class="btn" @tap="verifyTeamById">团队id查询</button>
       <button class="btn" @tap="() => pageTo(0)">返回</button>
     </view>
@@ -174,16 +174,10 @@ const verifyTeamByScan = () => {
   wxScan({
     success: (code) => {
       const data = JSON.parse(code);
-      if(data.type === 1) {
-        Taro.navigateTo({
-          url: "/pages/teamInfo/index?code="+data.team_id+"&codeType=1"+"&verifyData=true",
-        });
-      } else {
-        Taro.showModal({
-          title: "扫码失败",
-          content: "二维码类型错误，请扫团队码",
-        });
-      }
+      let content = data.type === 1 ? data.team_id : data.code;
+      Taro.navigateTo({
+          url: "/pages/teamInfo/index?code=" + content + "&codeType=" + data.type +"&showBind=true&verifyData=true",
+      });
     },
     fail: (errMsg) => {
       Taro.showModal({

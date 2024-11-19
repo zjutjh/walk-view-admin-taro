@@ -12,7 +12,7 @@ import { checkIn } from "../../services/services/userService"
 import { ref } from "vue";
 import "./index.css"
 
-const code = ref();
+const code = ref();  // 签到码 | 团队码
 const codeType = ref();
 
 function toStatus() {
@@ -25,7 +25,6 @@ const get_scanCode = () => {
   wx.scanCode({
       scanType: [ "barCode", "qrCode", "datamatrix", "pdf417" ],
       success: function(t) {
-        console.log(t);
         if(t.errMsg === "scanCode:ok") {
           //二维码读取成功
           teamCheckIn(t.result);
@@ -41,12 +40,10 @@ const get_scanCode = () => {
 }
 
 const teamCheckIn = async (teamData: string) => {
-  console.log(teamData);
   const data = JSON.parse(teamData);
-  console.log(data);
-  code.value = data.code;
   codeType.value = data.type;
   let content = data.type===1?data.team_id:data.code;
+  code.value = content;
   await checkIn({
     code_type: data.type,
     content: content+"",
