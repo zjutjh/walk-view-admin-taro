@@ -1,6 +1,10 @@
 <template>
   <view>
-    <view class="manageTitle">管理员: {{ admin.getName() }}</view>
+    <view class="manageTitle">
+      <view>管理员: {{ admin.getName() }}</view>
+      <view>路线: {{ route[admin.getRoute()] }}</view>
+      <view>点位: {{ admin.getPoint() }}</view>
+    </view>
     <view class="btnWrap" v-show="pageState === 0">
       <button class="btn" v-if="admin.getPoint() === 0" @tap="() => pageTo(1)">起点操作</button>
       <button class="btn" v-if="admin.getPoint() === 0" @tap="() => pageTo(4)">终点操作</button>
@@ -48,6 +52,7 @@ import { commitTeam } from "../../services/services/teamService";
 
 const admin = useAdminStore();
 const pageState = ref(0); // 0为基础页 1为查看团队 2为管理功能
+const route: string[] = ["朝晖路线","屏峰半程","屏峰全程","莫干山半程","莫干山全程"];
 
 const checkIn = () => {
     Taro.navigateTo({
@@ -176,7 +181,7 @@ const verifyTeamByScan = () => {
       const data = JSON.parse(code);
       let content = data.type === 1 ? data.team_id : data.code;
       Taro.navigateTo({
-          url: "/pages/teamInfo/index?code=" + content + "&codeType=" + data.type +"&showBind=true&verifyData=true",
+          url: "/pages/teamInfo/index?code=" + content + "&codeType=" + data.type +"&verifyData=true",
       });
     },
     fail: (errMsg) => {

@@ -5,7 +5,7 @@
       <view class="cell">路线</view>
       <view class="cell">类型</view>
       <view class="cell">队伍数量</view>
-      <view class="cell">总数</view>
+      <view class="cell">人数</view>
     </view>
     <view v-for="campusData in submitData" class="appInfoWrap1">
       <view v-for="teamData in campusData" class="appInfoWrap2">
