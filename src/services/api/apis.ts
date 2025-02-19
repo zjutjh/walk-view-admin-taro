@@ -24,7 +24,7 @@ const apis = {
 
 const BaseUrl = "https://test.phlin.top/api/v1";
 
-function appendHost(api: any) {
+function appendHost(api: Record<string, string | Record<string, string>>) {
   for (const key in api)
     if (Object.prototype.hasOwnProperty.call(api, key))
       if (api[key] instanceof Object) appendHost(api[key]);
@@ -32,5 +32,4 @@ function appendHost(api: any) {
         api[key] = BaseUrl + api[key];
 }
 appendHost(apis);
-console.log(apis);
 export default apis;

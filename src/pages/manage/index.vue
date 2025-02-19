@@ -6,11 +6,11 @@
       <view>点位: {{ admin.getPoint() }}</view>
     </view>
     <view class="btnWrap" v-show="pageState === 0">
-      <button class="btn" v-if="admin.getPoint() === 0" @tap="() => pageTo(1)">起点操作</button>
-      <button class="btn" v-if="admin.getPoint() === 0" @tap="() => pageTo(4)">终点操作</button>
-      <button class="btn" v-if="admin.getPoint() === 0" @tap="management">管理功能</button>
-      <button class="btn" v-if="admin.getPoint() !== 0" @tap="checkIn">扫码签到</button>
-      <button class="btn" v-if="admin.getPoint() !== 0" @tap="inputIn">输入签到</button>
+      <button class="btn" v-if="admin.getPoint() === '起点'" @tap="() => pageTo(1)">起点操作</button>
+      <button class="btn" v-if="admin.getPoint() === '起点'" @tap="() => pageTo(4)">终点操作</button>
+      <button class="btn" v-if="admin.getPoint() === '起点'" @tap="management">管理功能</button>
+      <button class="btn" v-if="admin.getPoint() !== '起点'" @tap="checkIn">扫码签到</button>
+      <button class="btn" v-if="admin.getPoint() !== '起点'" @tap="inputIn">输入签到</button>
     </view>
     <view class="btnWrap" v-show="pageState === 1">
       <view class="operationTitle">起点操作</view>
@@ -42,8 +42,8 @@
 </template>
 
 <script setup lang="ts">
-import "./index.css"
-import { useAdminStore } from '../../stores/admin';
+import "./index.css";
+import { useAdminStore } from "../../stores/admin";
 import Taro from "@tarojs/taro";
 import { ref } from "vue";
 import { wxScan, wxModal } from "../../services/services/wxService";
@@ -55,133 +55,133 @@ const pageState = ref(0); // 0为基础页 1为查看团队 2为管理功能
 const route: string[] = ["朝晖路线","屏峰半程","屏峰全程","莫干山半程","莫干山全程"];
 
 const checkIn = () => {
-    Taro.navigateTo({
-        url: "/pages/scanTeam/index",
-    });
-}
+  Taro.navigateTo({
+    url: "/pages/scanTeam/index",
+  });
+};
 
 const inputIn = () => {
   Taro.navigateTo({
     url: "/pages/inputTeam/index",
   });
-}
+};
 
 const pageToStats = () => {
   Taro.navigateTo({
     url: "/pages/stats/index",
-  })
-}
+  });
+};
 
 const pageToRebuildTeam = () => {
   Taro.navigateTo({
     url: "/pages/rebuildTeam/index",
-  })
-}
+  });
+};
 
 const pageToApplication = () => {
   Taro.navigateTo({
     url: "/pages/applicationInfo/index",
-  })
-}
+  });
+};
 
 const pageTo = (page: number) => {
-    pageState.value = page;
-}
+  pageState.value = page;
+};
 
 
 const inquiryByScan = () => {
-    wxScan({
-        success: (code) => {
-            const data = JSON.parse(code);
-            if(data.type === 1) {
-                Taro.navigateTo({
-                    url: "/pages/teamInfo/index?code="+data.team_id+"&codeType=1"+"&showBind=true",
-                });
-            } else {
-                Taro.showModal({
-                    title: "扫码失败",
-                    content: "二维码类型错误，请扫团队码",
-                });
-            }
-        },
-        fail: (errMsg) => {
-            Taro.showModal({
-                title: "扫码失败",
-                content: errMsg,
-            });
-        }
-    })
-}
+  wxScan({
+    success: (code) => {
+      const data = JSON.parse(code);
+      if(data.type === 1) {
+        Taro.navigateTo({
+          url: "/pages/teamInfo/index?code="+data.team_id+"&codeType=1"+"&showBind=true",
+        });
+      } else {
+        Taro.showModal({
+          title: "扫码失败",
+          content: "二维码类型错误，请扫团队码",
+        });
+      }
+    },
+    fail: (errMsg) => {
+      Taro.showModal({
+        title: "扫码失败",
+        content: errMsg,
+      });
+    }
+  });
+};
 
 const inquiryById = () => {
-    wxModal({
-        placeholderText: "团队ID",
-        success: (content) => {
-            //跳转团队信息
-            Taro.navigateTo({
-                url: "/pages/teamInfo/index?code="+content+"&codeType=1&showBind=true",
-            });
-        },
-    })
-}
+  wxModal({
+    placeholderText: "团队ID",
+    success: (content) => {
+      //跳转团队信息
+      Taro.navigateTo({
+        url: "/pages/teamInfo/index?code="+content+"&codeType=1&showBind=true",
+      });
+    },
+  });
+};
 
 const management = () => {
-    wxModal({
-        placeholderText: "管理员密码",
-        success: async (password) => {
-            if(await verifyPassword({secret: password})) {
-                pageTo(2);
-            } else {
-                Taro.showModal({title: "密码错误"});
-            }
-        }
-    })
-}
+  wxModal({
+    placeholderText: "管理员密码",
+    success: async (password) => {
+      if(await verifyPassword({secret: password})) {
+        pageTo(2);
+      } else {
+        Taro.showModal({title: "密码错误"});
+      }
+    }
+  });
+};
 
 const commitTeamByScan = () => {
-    wxScan({
-        success: (code) => {
-            const data = JSON.parse(code);
-            if(data.type === 1) {
-                commitTeam({
-                    team_id: data.team_id,
-                    secret: admin.getSecret+"",
-                })
-            } else {
-                Taro.showModal({
-                    title: "扫码失败",
-                    content: "二维码类型错误，请扫团队码",
-                });
-            }
-        },
-        fail: (errMsg) => {
-            Taro.showModal({
-                title: "扫码失败",
-                content: errMsg,
-            });
-        }
-    })
-}
+  wxScan({
+    success: (code) => {
+      const data = JSON.parse(code);
+      if(data.type === 1) {
+        commitTeam({
+          team_id: data.team_id,
+          secret: admin.getSecret+"",
+        });
+      } else {
+        Taro.showModal({
+          title: "扫码失败",
+          content: "二维码类型错误，请扫团队码",
+        });
+      }
+    },
+    fail: (errMsg) => {
+      Taro.showModal({
+        title: "扫码失败",
+        content: errMsg,
+      });
+    }
+  });
+};
 
 const commitTeamById = () => {
-    wxModal({
-        placeholderText: "团队ID",
-        success: (content) => {
-            commitTeam({
-                team_id: Number.parseInt(content),
-                secret: admin.getSecret()+"",
-            })
-        },
-    })
-}
+  wxModal({
+    placeholderText: "团队ID",
+    success: (content) => {
+      commitTeam({
+        team_id: Number.parseInt(content),
+        secret: admin.getSecret()+"",
+      });
+    },
+  });
+};
 
 const verifyTeamByScan = () => {
   wxScan({
     success: (code) => {
       const data = JSON.parse(code);
-      let content = data.type === 1 ? data.team_id : data.code;
+      const content = data.type === 1 ? data.team_id : data.code;
       Taro.navigateTo({
-          url: "/pages/teamInfo/index?code=" + content + "&codeType=" + data.type +"&verifyData=true",
+        url: "/pages/teamInfo/index?code=" + content + "&codeType=" + data.type +"&verifyData=true",
       });
     },
     fail: (errMsg) => {
@@ -190,8 +190,8 @@ const verifyTeamByScan = () => {
         content: errMsg,
       });
     }
-  })
-}
+  });
+};
 
 const verifyTeamById = () => {
   wxModal({
@@ -202,7 +202,7 @@ const verifyTeamById = () => {
         url: "/pages/teamInfo/index?code="+content+"&codeType=1&verifyData=true",
       });
     },
-  })
-}
+  });
+};
 
 </script>
