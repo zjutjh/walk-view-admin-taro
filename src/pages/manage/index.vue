@@ -28,7 +28,7 @@
     </view>
     <view class="btnWrap" v-show="pageState === 3">
       <view class="operationTitle">直接提交团队</view>
-      <button class="btn" @tap="commitTeamByScan">团队码提交</button>
+      <!-- <button class="btn" @tap="commitTeamByScan">团队码提交</button> -->
       <button class="btn" @tap="commitTeamById">团队id提交</button>
       <button class="btn" @tap="() => pageTo(2)">返回</button>
     </view>
@@ -138,30 +138,31 @@ const management = () => {
   });
 };
 
-const commitTeamByScan = () => {
-  wxScan({
-    success: (code) => {
-      const data = JSON.parse(code);
-      if(data.type === 1) {
-        commitTeam({
-          team_id: data.team_id,
-          secret: admin.getSecret+"",
-        });
-      } else {
-        Taro.showModal({
-          title: "扫码失败",
-          content: "二维码类型错误，请扫团队码",
-        });
-      }
-    },
-    fail: (errMsg) => {
-      Taro.showModal({
-        title: "扫码失败",
-        content: errMsg,
-      });
-    }
-  });
-};
+// 已弃用
+// const commitTeamByScan = () => {
+//   wxScan({
+//     success: (code) => {
+//       const data = JSON.parse(code);
+//       if(data.type === 1) {
+//         commitTeam({
+//           team_id: data.team_id,
+//           secret: admin.getSecret+"",
+//         });
+//       } else {
+//         Taro.showModal({
+//           title: "扫码失败",
+//           content: "二维码类型错误，请扫团队码",
+//         });
+//       }
+//     },
+//     fail: (errMsg) => {
+//       Taro.showModal({
+//         title: "扫码失败",
+//         content: errMsg,
+//       });
+//     }
+//   });
+// };
 
 const commitTeamById = () => {
   wxModal({
