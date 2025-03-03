@@ -22,7 +22,7 @@ const apis = {
   }
 };
 
-const BaseUrl = "https://test.phlin.top/api/v1";
+const BaseUrl = "https://test.phlin.cn/api/v1";
 
 function appendHost(api: Record<string, string | Record<string, string>>) {
   for (const key in api)
