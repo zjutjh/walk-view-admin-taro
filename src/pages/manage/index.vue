@@ -52,7 +52,7 @@ import { commitTeam } from "../../services/services/teamService";
 
 const admin = useAdminStore();
 const pageState = ref(0); // 0为基础页 1为查看团队 2为管理功能
-const route: string[] = ["朝晖路线","屏峰半程","屏峰全程","莫干山半程","莫干山全程"];
+const route: string[] = ["", "朝晖路线","屏峰半程","屏峰全程","莫干山半程","莫干山全程"];
 
 const checkIn = () => {
   Taro.navigateTo({

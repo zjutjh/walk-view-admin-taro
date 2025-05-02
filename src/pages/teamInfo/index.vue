@@ -22,7 +22,7 @@
       </view>
       <view v-show="!verify" class="team-info">
           <text class="left">{{"队伍位置"}}</text>
-          <text class="right">{{teamData.team.point}}</text>
+          <text class="right">{{teamData.team.point==""?"未开始":teamData.team.point}}</text>
       </view>
       <view class="team-info">
           <text class="left">{{"队伍状态"}}</text>
