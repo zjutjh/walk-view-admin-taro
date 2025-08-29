@@ -4,8 +4,8 @@
     <view class="tips">tips: 第一个添加的将作为队长 最多添加6人</view>
     <button class="btn" @tap="addMember">扫码添加</button>
     <view class="membersWarp">
-      <view class="newMember" v-for="(mem, index) in membersName">
-        成员{{ index+1 }}id: {{ mem }}
+      <view class="newMember" v-for="(mem, index) in membersName" :key="index">
+        成员{{ index+1 }}姓名: {{ mem }}
         <view class="deleteBtn" @tap="() => delMember(index)">删除</view>
       </view>
     </view>
@@ -18,7 +18,7 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
-import "./index.css"
+import "./index.css";
 import { wxScan } from "../../services/services/wxService";
 import Taro from "@tarojs/taro";
 import { rebuildTeam } from "../../services/services/teamService";
@@ -30,7 +30,7 @@ membersJwt.value = [];
 const membersName = ref<string[]>();// 存放成员name
 membersName.value = [];
 
-const campus = ['朝晖', '屏峰半程', '屏峰全程', '莫干山半程', '莫干山全程'];
+const campus = ["朝晖", "屏峰半程", "屏峰全程", "莫干山半程", "莫干山全程"];
 const chosenCampus = ref(0);
 
 const addMember = () => {
@@ -48,7 +48,7 @@ const addMember = () => {
         } else {
           Taro.showModal({
             title: "重复扫码"
-          })
+          });
         }
       }
     },
@@ -56,31 +56,31 @@ const addMember = () => {
       Taro.showModal({
         title: "扫码错误",
         content: errMsg,
-      })
+      });
     }
-  })
-}
+  });
+};
 
 const delMember = (index: number) => {
   membersJwt.value?.splice(index, 1);
   membersName.value?.splice(index, 1);
-}
+};
 
 const rebuild = async () => {
   const suc = await rebuildTeam({
     jwts: membersJwt.value as string[],
     secret: admin.getSecret()+"",
     route: 1+chosenCampus.value,
-  })
+  });
   if(suc) {
     Taro.navigateTo({
       url: "/pages/manage/index"
-    })
+    });
   }
-}
+};
 
 const onChangeCampus = (e) => {
   chosenCampus.value = e.detail.value;
-}
+};
 
 </script>

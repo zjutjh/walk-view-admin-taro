@@ -25,7 +25,7 @@ export interface TeamStatus {
     id: number,
     name: string,
     password: string,
-    point: number,
+    point: string,
     route: number,
     slogan: string,
     start_num: number,
