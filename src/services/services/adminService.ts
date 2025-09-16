@@ -58,4 +58,25 @@ const getRouteDetail = async (
     return resData;
 }
 
-export { verifyPassword, getRouteDetail };
+const getSubmitDetail = async (
+    data: routeDetailData
+):Promise<any> => {
+    let resData;
+    await Taro.request({
+        method: "GET",
+        url: apis.admin.submitDetail,
+        data: data,
+        header: {
+            "Authorization": "Bearer" + jwt.getJwt()
+        },
+        success: (res) => {
+            if(res.data.code === 200) {
+                resData = res.data.data.results;
+            }
+        },
+        fail(res) { reportErrModal(res.errMsg); }
+    })
+    return resData;
+}
+
+export { verifyPassword, getRouteDetail, getSubmitDetail };

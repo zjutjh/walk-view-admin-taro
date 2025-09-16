@@ -14,20 +14,24 @@
       </view>
       <view class="team-info">
           <text class="left">{{"队伍路线"}}</text>
-          <text class="right">{{route[teamData.team.route]}}</text>
+          <text class="right">{{route[teamData.team.route-1]}}</text>
       </view>
       <view class="team-info">
           <text class="left">{{"队伍人数"}}</text>
           <text class="right">{{teamData.member.length}}</text>
       </view>
+      <view v-show="!verify" class="team-info">
+          <text class="left">{{"队伍位置"}}</text>
+          <text class="right">{{teamData.team.point==""?"未开始":teamData.team.point}}</text>
+      </view>
       <view class="team-info">
           <text class="left">{{"队伍状态"}}</text>
           <text class="right">{{teamStatus[teamData.team.status]}}</text>
       </view>
-    <view v-show="verify" class="team-info">
-      <text class="left">{{"上一点位信息"}}</text>
-      <text class="right">{{teamData.team.point}}</text>
-    </view>
+      <view v-show="verify" class="team-info">
+        <text class="left">{{"上一点位信息"}}</text>
+        <text class="right">{{teamData.team.point}}</text>
+      </view>
   </view>
   <view class="table-wrapper">
     <view class="tips">
@@ -50,9 +54,9 @@
       </view>
     </view>
   </view>
-  <button v-show="showBind" @tap="teamBind">团队绑定</button>
-  <button v-show="showBind" @tap="allMembersArrived">全部签到</button>
-  <picker v-show="verify" mode="selector" :range="verifyStatus" @change="verifyTeam(teamData?teamData.team.id:-1, $event)">
+  <button v-show="showBind&&teamData?.team.status==1" @tap="allMembersArrived">全部签到</button>
+  <button v-show="showBind&&teamData?.team.status==1" @tap="teamBind">团队绑定</button>
+  <picker v-show="verify&&teamData?.team.status!=3&&teamData?.team.status!=4" mode="selector" :range="verifyStatus" @change="verifyTeam(teamData?teamData.team.id:-1, $event)">
     <button>终点确认</button>
   </picker>
 </view>
@@ -71,7 +75,7 @@ import { bindTeamCode } from "../../services/services/teamService";
 import { verifyTeamDestination } from "../../services/services/teamService";
 import { wxScan } from "../../services/services/wxService";
 
-const teamStatus: string[] = ["未开始","未开始","进行中","扫码成功","放弃","完成"];
+const teamStatus: string[] = ["未开始","未开始","进行中","未完成","完成","扫码成功"];
 const route: string[] = ["朝晖路线","屏峰半程","屏峰全程","莫干山半程","莫干山全程"];
 const walkStatus: string[] = ["", "未开始", "进行中", "扫码成功", "放弃", "完成"];
 const userState: string[] = ["", "成员未到", "下撤", "下撤", "取消下撤", "已完成"];
@@ -102,6 +106,7 @@ const initData = async () => {
   teamData.value = resdata as TeamStatus;
   membersStore.initMembers(teamData.value["member"]);
   members.value = membersStore.getMembers();
+  console.log("刷新成功");
 }
 
 const allMembersArrived = async () => {
@@ -155,6 +160,7 @@ const teamBind = async () => {
               code: checkCodeJson.code+"",
               type: checkCodeJson.type,
             })
+            initData();
           },
           fail: (errMsg) => {
             Taro.showModal({

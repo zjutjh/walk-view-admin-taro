@@ -29,7 +29,7 @@ const showStateModal = async () => {
       code.value = content;
       codeType.value = 1;
       await checkIn({
-        code_type: data.type,
+        code_type: 1,
         content: content+"",
       });
     }

@@ -25,8 +25,6 @@ pnpm dev:weapp
 
 #### pages
 
-- handleScanMember 空页面 (前人遗留不知作用)
-
 - index 登录页
 
 - manage 管理主页 用于展示基本功能
