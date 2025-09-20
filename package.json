@@ -56,6 +56,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.8.0",
+    "@babel/plugin-bugfix-safari-id-destructuring-collision-in-function-expression":"7.27.1",
     "@tarojs/cli": "3.6.17",
     "@tarojs/taro-loader": "3.6.17",
     "@tarojs/webpack5-runner": "3.6.17",
