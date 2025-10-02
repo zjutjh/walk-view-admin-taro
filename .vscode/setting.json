@@ -1,0 +1,19 @@
+{
+  "prettier.enable": false,
+  "[css]": {
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+  },
+  "[html]": {
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+  },
+  "eslint.validate": [
+    "css",
+    "json",
+    "html",
+    "vue",
+    "typescript"
+  ]
+}
