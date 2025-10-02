@@ -120,6 +120,9 @@ importers:
       globals:
         specifier: ^16.4.0
         version: 16.4.0
+      jiti:
+        specifier: ^2.6.1
+        version: 2.6.1
       postcss:
         specifier: ^8.4.18
         version: https://registry.npmmirror.com/postcss/-/postcss-8.4.18.tgz
@@ -15735,8 +15738,7 @@ snapshots:
 
   jiti@1.20.0: {}
 
-  jiti@2.6.1:
-    optional: true
+  jiti@2.6.1: {}
 
   joi@https://registry.npmmirror.com/joi/-/joi-17.10.2.tgz:
     dependencies:

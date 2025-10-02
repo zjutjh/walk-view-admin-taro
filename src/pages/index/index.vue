@@ -46,7 +46,8 @@ async function login() {
   } else {
     await Taro.showModal({
       title: "登录失败!",
-      content: "账号或者密码错误"
+      content: "账号或者密码错误",
+      showCancel: false
     });
   }
 }
