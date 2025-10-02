@@ -22,7 +22,7 @@ const saveLoginData = (resAdmin: any) => {
   admin.setRoute(resAdmin.route);
 }
 
-//账号登陆服务
+/** 账号登陆服务 */
 async function loginByAccount(
   data: loginData
 ): Promise<boolean> {
@@ -40,14 +40,14 @@ async function loginByAccount(
     },
     fail(res) { reportErrModal(res.errMsg); }
   });
-  if (resData.data.msg !== "ok"){ 
+  if (resData.data.msg !== "ok"){
     Taro.hideLoading();
     return false;
   }
   jwt.setJwt(resData.data.data.jwt);
   saveLoginData(resData.data.data.admin);
 
-  //绑定自动登录
+  // 绑定自动登录
   await Taro.login({
     success: function (res) {
       if (res.code) {
@@ -72,7 +72,7 @@ async function loginByAccount(
   return true;
 }
 
-//自动登录
+//* 自动登录 */
 async function autoLogin (): Promise<boolean> {
   Taro.showLoading({
     title: "自动登录中",

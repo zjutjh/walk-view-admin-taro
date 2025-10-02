@@ -25,7 +25,6 @@ async function login(){
   };
   const res = await loginByAccount(data);
   if(res) {
-    console.log("login success");
     await Taro.navigateTo({
       url: "/pages/manage/index"
     });
@@ -42,13 +41,13 @@ onMounted(async () => {
   else if (!await autoLogin()) {
     await Taro.showModal({
       title: "登录失败!",
-      content: "自动登录失败请再次登录!"
+      content: "自动登录失败请再次登录!",
+      showCancel: false
     });
   } else {
     await Taro.navigateTo({
       url: "/pages/manage/index"
     });
-    console.log("login by mounted");
   }
   return;
 });
