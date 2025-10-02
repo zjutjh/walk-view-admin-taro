@@ -22,7 +22,12 @@ const apis = {
   }
 };
 
-const BaseUrl = "https://walk.mggovo.cn/api/v1";
+/**
+ * 此处使用dotenvx打入环境变量, 然后Taro 会在打包时静态替换
+ * ApiBaseUrl是存在的, 详见config/index.ts和.env
+ */
+const BaseUrl = ApiBaseUrl;
+
 
 function appendHost(api: Record<string, string | Record<string, string>>) {
   for (const key in api)

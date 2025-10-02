@@ -1,3 +1,8 @@
+import path from 'path';
+import dotenv from 'dotenv';
+
+dotenv.config({ path: path.resolve(__dirname, '../.env') });
+
 const config = {
   projectName: "walk-admin",
   date: "2023-10-3",
@@ -9,8 +14,11 @@ const config = {
   },
   sourceRoot: "src",
   outputRoot: "dist",
-  plugins: [],
+  plugins: [
+  ],
+  mode: process.env.NODE_ENV,
   defineConstants: {
+    ApiBaseUrl: JSON.stringify(process.env.ApiBaseUrl)
   },
   copy: {
     patterns: [
@@ -28,7 +36,7 @@ const config = {
     },
   },
   cache: {
-    enable: false // Webpack 持久化缓存配置，建议开启。默认配置请参考：https://docs.taro.zone/docs/config-detail#cache
+    enable: true // Webpack 持久化缓存配置，建议开启。默认配置请参考：https://docs.taro.zone/docs/config-detail#cache
   },
   mini: {
     webpackChain (chain) {
@@ -87,7 +95,10 @@ const config = {
         }
       }
     }
-  }
+  },
+  env: {
+    ...process.env
+  },
 };
 
 module.exports = function (merge) {
