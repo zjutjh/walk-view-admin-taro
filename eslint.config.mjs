@@ -4,7 +4,7 @@ export default zjutjh({
   vue: true,
   ts: {
     parserOptions: {
-      project: ["./tsconfig.json", "**/packages/*/tsconfig.json"]
+      project: ["./tsconfig.json"]
     }
   },
   overrides: {
