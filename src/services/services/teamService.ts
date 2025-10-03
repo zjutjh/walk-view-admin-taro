@@ -1,18 +1,19 @@
-import {useJwtStore} from "../../stores/jwt";
 import Taro from "@tarojs/taro";
+
+import { useJwtStore } from "../../stores/jwt";
+import { TeamStatus } from "../../types/teamStatus";
 import apis from "../api/apis";
-import {TeamStatus} from "../../types/teamStatus";
 import { reportErrModal } from "./wxService";
 
 const jwt = useJwtStore();
 
-interface teamData {
+interface teamRequest {
   code_type: number,
   content: string
 }
 
 async function getTeamStatus(
-  data: teamData
+  data: teamRequest
 ): Promise<TeamStatus | boolean> {
   let res;
   await Taro.request({
@@ -22,29 +23,29 @@ async function getTeamStatus(
     header: {
       "Authorization": "Bearer " + jwt.getJwt()
     },
-    success: function (resData) {
+    success: function(resData) {
       res = resData;
     },
-    fail(res) { reportErrModal(res.errMsg); }
+    fail(failRes) {
+      reportErrModal(failRes.errMsg);
+    }
   });
-  if (res.data.msg === "ok" ){
-    console.log("get team data success");
+  if (res.data.msg === "ok") {
     return res.data.data;
   }
-  else {
-    console.log("get team data failed");
-    return false;
-  }
+
+  return false;
+
 }
 
-interface teamBindData {
+interface teamBindRequest {
   team_id: number,
   code: string,
   type: number
 }
 
 async function bindTeamCode(
-  data: teamBindData
+  data: teamBindRequest
 ): Promise<boolean> {
   await Taro.request({
     method: "POST",
@@ -53,31 +54,33 @@ async function bindTeamCode(
     header: {
       "Authorization": "Bearer " + jwt.getJwt()
     },
-    success: function (resData) {
-      if(resData.data.code === 200) {
+    success: function(resData) {
+      if (resData.data.code === 200) {
         wx.showModal({
           title: "绑定成功"
-        })
+        });
         return true;
-      } else {
-        wx.showModal({
-          title: "绑定失败",
-          content: resData.data.msg,
-        })
       }
+      wx.showModal({
+        title: "绑定失败",
+        content: resData.data.msg
+      });
+
     },
-    fail(res) { reportErrModal(res.errMsg); }
-  })
+    fail(res) {
+      reportErrModal(res.errMsg);
+    }
+  });
   return false;
 }
 
-interface commitTeamData {
+interface commitTeamRequest {
   team_id: number,
   secret: string,
 }
 
 const commitTeam = async (
-  data: commitTeamData
+  data: commitTeamRequest
 ): Promise<boolean> => {
   await Taro.request({
     method: "POST",
@@ -86,32 +89,37 @@ const commitTeam = async (
     header: {
       "Authorization": "Bearer " + jwt.getJwt()
     },
-    success: function (resData) {
-      if(resData.data.code === 200) {
+    success: function(resData) {
+      if (resData.data.code === 200) {
         wx.showModal({
           title: "提交成功"
-        })
+        });
         return true;
-      } else {
-        wx.showModal({
-          title: "提交失败",
-          content: resData.data.msg,
-        })
       }
-    },
-    fail(res) { reportErrModal(res.errMsg); }
-  })
-  return false;
-}
+      wx.showModal({
+        title: "提交失败",
+        content: resData.data.msg
+      });
 
-interface rebuildTeamData {
+    },
+    fail(res) {
+      reportErrModal(res.errMsg);
+    }
+  });
+  return false;
+};
+
+export interface rebuildTeamRequest {
   jwts: string[],
   secret: string,
-  route: number
+  /** 1 是朝晖路线，2 屏峰半程，3 屏峰全程，4 莫干山半程，5 莫干山全程 */
+  route: number,
+  name: string,
+  slogon: string
 }
 
 const rebuildTeam = async (
-  data: rebuildTeamData
+  data: rebuildTeamRequest
 ): Promise<boolean> => {
   let sucFlag = false;
   await Taro.request({
@@ -121,31 +129,42 @@ const rebuildTeam = async (
     header: {
       "Authorization": "Bearer " + jwt.getJwt()
     },
-    success: function (resData) {
-      if(resData.data.code === 200) {
+    success: (resData) => {
+      if (resData.data.code === 200) {
         wx.showModal({
-          title: "重组队伍成功"
-        })
+          title: "重组队伍成功",
+          cancelText: "留在此页",
+          confirmText: "往回主页",
+          success: (res) => {
+            if (res.confirm) {
+              Taro.navigateTo({
+                url: "/pages/manage/index"
+              });
+            }
+          }
+        });
         sucFlag = true;
       } else {
         wx.showModal({
           title: "重组队伍失败",
-          content: resData.data.msg,
-        })
+          content: resData.data.msg
+        });
       }
     },
-    fail(res) { reportErrModal(res.errMsg); }
-  })
+    fail(res) {
+      reportErrModal(res.errMsg);
+    }
+  });
   return sucFlag;
-}
+};
 
-interface verifyTeamData {
+interface verifyTeamRequest {
   team_id: number,
   status: number
 }
 
 const verifyTeamDestination = async (
-  data: verifyTeamData
+  data: verifyTeamRequest
 ): Promise<boolean> => {
   let sucFlag = false;
   await Taro.request({
@@ -155,22 +174,24 @@ const verifyTeamDestination = async (
     header: {
       "Authorization": "Bearer " + jwt.getJwt()
     },
-    success: function (resData) {
-      if(resData.data.code === 200) {
+    success: function(resData) {
+      if (resData.data.code === 200) {
         wx.showModal({
           title: "确认队伍成功"
-        })
+        });
         sucFlag = true;
       } else {
         wx.showModal({
           title: "确认队伍失败",
-          content: resData.data.msg,
-        })
+          content: resData.data.msg
+        });
       }
     },
-    fail(res) { reportErrModal(res.errMsg); }
-  })
+    fail(res) {
+      reportErrModal(res.errMsg);
+    }
+  });
   return sucFlag;
-}
+};
 
-export { getTeamStatus , bindTeamCode, commitTeam, rebuildTeam ,verifyTeamDestination};
+export { bindTeamCode, commitTeam, getTeamStatus, rebuildTeam, verifyTeamDestination };

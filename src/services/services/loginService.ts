@@ -1,8 +1,9 @@
-import api from "../api/apis";
 import Taro from "@tarojs/taro";
-import {useCodeStore} from "../../stores/code";
-import {useJwtStore} from "../../stores/jwt";
+
 import { useAdminStore } from "../../stores/admin";
+import { useCodeStore } from "../../stores/code";
+import { useJwtStore } from "../../stores/jwt";
+import api from "../api/apis";
 import { reportErrModal } from "./wxService";
 
 interface loginData {
@@ -20,7 +21,7 @@ const saveLoginData = (resAdmin: any) => {
   admin.setName(resAdmin.name);
   admin.setPoint(resAdmin.point);
   admin.setRoute(resAdmin.route);
-}
+};
 
 /** 账号登陆服务 */
 async function loginByAccount(
@@ -28,19 +29,21 @@ async function loginByAccount(
 ): Promise<boolean> {
   Taro.showLoading({
     title: "登录中",
-    mask: true,
+    mask: true
   });
   let resData;
   await Taro.request({
     method: "POST",
     url: api.login.normal,
     data: data,
-    success: function (res) {
+    success: function(res) {
       resData = res;
     },
-    fail(res) { reportErrModal(res.errMsg); }
+    fail(res) {
+      reportErrModal(res.errMsg);
+    }
   });
-  if (resData.data.msg !== "ok"){
+  if (resData.data.msg !== "ok") {
     Taro.hideLoading();
     return false;
   }
@@ -49,7 +52,7 @@ async function loginByAccount(
 
   // 绑定自动登录
   await Taro.login({
-    success: function (res) {
+    success: function(res) {
       if (res.code) {
         Taro.request({
           method: "POST",
@@ -59,8 +62,9 @@ async function loginByAccount(
             code: res.code
           }
         }).then((res) => {
-          if(res.data.data.jwt)
+          if (res.data.data.jwt) {
             jwt.setJwt(res.data.data.jwt);
+          }
         });
         code.setCode(res.code);
       } else {
@@ -73,10 +77,10 @@ async function loginByAccount(
 }
 
 //* 自动登录 */
-async function autoLogin (): Promise<boolean> {
+async function autoLogin(): Promise<boolean> {
   Taro.showLoading({
     title: "自动登录中",
-    mask: true,
+    mask: true
   });
   const code = useCodeStore();
   let resData;
@@ -84,26 +88,28 @@ async function autoLogin (): Promise<boolean> {
     method: "POST",
     url: api.login.auto,
     data: {
-      code: code.getCode(),
+      code: code.getCode()
     },
-    success: function (res) {
+    success: function(res) {
       resData = res;
     },
-    fail(res) { reportErrModal(res.errMsg); }
+    fail(res) {
+      reportErrModal(res.errMsg);
+    }
   });
-  if (resData.data.msg === "ok"){
+  if (resData.data.msg === "ok") {
     jwt.setJwt(resData.data.data.jwt);
     saveLoginData(resData.data.data.admin);
     console.log("auto login success");
 
-    //重制code登录凭证
+    // 重制code登录凭证
     Taro.login({
       success: (res) => {
-        if(res.code) {
+        if (res.code) {
           code.setCode(res.code);
         }
       }
-    })
+    });
     Taro.hideLoading();
     return true;
   }
@@ -111,4 +117,4 @@ async function autoLogin (): Promise<boolean> {
   return false;
 }
 
-export {loginByAccount , autoLogin};
+export { autoLogin, loginByAccount };

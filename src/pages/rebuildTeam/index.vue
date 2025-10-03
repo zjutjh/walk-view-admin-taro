@@ -25,7 +25,31 @@
     >
       已选择{{ campus[chosenCampus] }}
     </picker>
-    <button v-if="membersJwt && membersJwt.length>0" class="btn" @tap="rebuild">
+    <view class="newInfo">
+      <input
+        v-model="newTeamName"
+        class="newInfoInput"
+        type="text"
+        placeholder="请输入新团队名"
+      >
+      <input
+        v-model="newSlogon"
+        class="newInfoInput"
+        placeholder="请输入新口号"
+      >
+    </view>
+
+    <button
+      v-if="membersJwt && membersJwt.length>0"
+      class="btn"
+      @tap="rebuild({
+        jwts: membersJwt as string[],
+        secret: String(admin.getSecret()),
+        route: 1 + chosenCampus,
+        name: newTeamName,
+        slogon: newSlogon
+      });"
+    >
       提交团队
     </button>
   </view>
@@ -37,40 +61,43 @@ import "./index.css";
 import Taro from "@tarojs/taro";
 import { ref } from "vue";
 
-import { rebuildTeam } from "../../services/services/teamService";
+import { rebuildTeam, rebuildTeamRequest } from "../../services/services/teamService";
 import { wxScan } from "../../services/services/wxService";
 import { useAdminStore } from "../../stores/admin";
 
 const admin = useAdminStore();
-const membersJwt = ref<string[]>();// 存放成员jwt
-membersJwt.value = [];
-const membersName = ref<string[]>();// 存放成员name
-membersName.value = [];
+/** 成员们的jwt */
+const membersJwt = ref<string[]>([]);
+/** 成员们的姓名 */
+const membersName = ref<string[]>([]);
 
 const campus = ["朝晖", "屏峰半程", "屏峰全程", "莫干山半程", "莫干山全程"];
-const chosenCampus = ref(0);
+const chosenCampus = ref<number>(0);
 
+const newTeamName = ref<string>("");
+const newSlogon = ref<string>("");
+
+/** 扫入个人码 */
 const addMember = () => {
   wxScan({
     success: (res) => {
       const data = JSON.parse(res);
       let flag = true; // 查重
-      if (membersJwt.value && membersName.value) {
-        for (let i = 0; i < membersJwt.value.length; i++) {
-          if (membersJwt.value[i] === data.jwt) {
-            flag = false;
-          }
-        }
-        if (flag) {
-          membersJwt.value.push(data.jwt);
-          membersName.value.push(data.name);
-        } else {
-          Taro.showModal({
-            title: "重复扫码",
-            showCancel: false
-          });
+      for (let i = 0; i < membersJwt.value.length; i++) {
+        if (membersJwt.value[i] === data.jwt) {
+          flag = false;
         }
       }
+      if (flag) {
+        membersJwt.value.push(data.jwt);
+        membersName.value.push(data.name);
+      } else {
+        Taro.showModal({
+          title: "重复扫码",
+          showCancel: false
+        });
+      }
+
     },
     fail: (errMsg) => {
       Taro.showModal({
@@ -82,22 +109,20 @@ const addMember = () => {
   });
 };
 
-const delMember = (index: number) => {
-  membersJwt.value?.splice(index, 1);
-  membersName.value?.splice(index, 1);
+const rebuild = async (data: rebuildTeamRequest) => {
+  if (newTeamName.value === "" || newSlogon.value === "") {
+    Taro.showModal({
+      title: "请填写完整信息",
+      showCancel: false
+    });
+    return;
+  }
+  rebuildTeam(data);
 };
 
-const rebuild = async () => {
-  const suc = await rebuildTeam({
-    jwts: membersJwt.value as string[],
-    secret: String(admin.getSecret()),
-    route: 1 + chosenCampus.value
-  });
-  if (suc) {
-    Taro.navigateTo({
-      url: "/pages/manage/index"
-    });
-  }
+const delMember = (index: number) => {
+  membersJwt.value.splice(index, 1);
+  membersName.value.splice(index, 1);
 };
 
 const onChangeCampus = (e) => {
