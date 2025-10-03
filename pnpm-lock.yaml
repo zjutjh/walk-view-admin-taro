@@ -2558,6 +2558,9 @@ packages:
   brace-expansion@2.0.1:
     resolution: {integrity: sha512-XnAIvQ8eM+kC6aULx6wuQiwVsnzsi9d3WxzV3FpWTGA19F621kwdbsAcFKXgKUHZWsy+mY6iL1sHTxWEFCytDA==}
 
+  brace-expansion@2.0.2:
+    resolution: {integrity: sha512-Jt0vHyM+jmUBqojB7E1NIYadt0vI0Qxjxd2TErW94wDz+E2LAm5vKMXXwg6ZZBTHPuUlDgQHKXvjGBdfcF1ZDQ==}
+
   brace-expansion@https://registry.npmmirror.com/brace-expansion/-/brace-expansion-1.1.11.tgz:
     resolution: {integrity: sha512-iCuPHDFgrHX7H2vEI/5xpz07zSHB00TpugqhmYtVmMO6518mCuRMoOYFldEBl0g187ufozdaHgWKcYFb61qGiA==, tarball: https://registry.npmmirror.com/brace-expansion/-/brace-expansion-1.1.11.tgz}
     version: 1.1.11
@@ -2584,11 +2587,6 @@ packages:
     resolution: {integrity: sha512-b8um+L1RzM3WDSzvhm6gIz1yfTbBt6YTlcEKAvsmqCZZFw46z626lVj9j1yEPW33H5H+lBQpZMP1k8l+78Ha0A==, tarball: https://registry.npmmirror.com/braces/-/braces-3.0.2.tgz}
     version: 3.0.2
     engines: {node: '>=8'}
-
-  browserslist@4.22.1:
-    resolution: {integrity: sha512-FEVc202+2iuClEhZhrWy6ZiAcRLvNMyYcxZ8raemul1DYVOVdFsbqckWLdsixQZCpJlwe77Z3UTalE7jsjnKfQ==}
-    engines: {node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7}
-    hasBin: true
 
   browserslist@https://registry.npmmirror.com/browserslist/-/browserslist-3.2.8.tgz:
     resolution: {integrity: sha512-WHVocJYavUwVgVViC0ORikPHQquXwVh939TaelZ4WDqpWgTX/FsGhl/+P4qBUAGcRvtOgDgC+xftNWWp2RUTAQ==, tarball: https://registry.npmmirror.com/browserslist/-/browserslist-3.2.8.tgz}
@@ -2730,8 +2728,8 @@ packages:
     resolution: {integrity: sha512-bsTwuIg/BZZK/vreVTYYbSWoe2F+71P7K5QGEX+pT250DZbfU1MQ5prOKpPR+LL6uWKK3KMwMCAS74QB3Um1uw==, tarball: https://registry.npmmirror.com/caniuse-api/-/caniuse-api-3.0.0.tgz}
     version: 3.0.0
 
-  caniuse-lite@1.0.30001664:
-    resolution: {integrity: sha512-AmE7k4dXiNKQipgn7a2xg558IRqPN3jMQY/rOsbxDhrd0tyChwbITBfiwtnqz8bi2M5mIWbxAYBvk7W7QBUS2g==}
+  caniuse-lite@1.0.30001747:
+    resolution: {integrity: sha512-mzFa2DGIhuc5490Nd/G31xN1pnBnYMadtkyTjefPI7wzypqgCEpeWu9bJr0OnDsyKrW75zA9ZAt7pbQFmwLsQg==}
 
   capital-case@https://registry.npmmirror.com/capital-case/-/capital-case-1.0.4.tgz:
     resolution: {integrity: sha512-ds37W8CytHgwnhGGTi88pcPyR15qoNkOpYwmMMfnWqqWgESapLqvDx6huFjQ5vqWSn2Z06173XNA7LtMOeUh1A==, tarball: https://registry.npmmirror.com/capital-case/-/capital-case-1.0.4.tgz}
@@ -3993,9 +3991,6 @@ packages:
     engines: {node: '>=0.10.0'}
     hasBin: true
 
-  electron-to-chromium@1.4.539:
-    resolution: {integrity: sha512-wRmWJ8F7rgmINuI32S6r2SLrw/h/bJQsDSvBiq9GBfvc2Lh73qTOwn73r3Cf67mjVgFGJYcYtmERzySa5jIWlg==}
-
   electron-to-chromium@https://registry.npmmirror.com/electron-to-chromium/-/electron-to-chromium-1.4.539.tgz:
     resolution: {integrity: sha512-wRmWJ8F7rgmINuI32S6r2SLrw/h/bJQsDSvBiq9GBfvc2Lh73qTOwn73r3Cf67mjVgFGJYcYtmERzySa5jIWlg==, tarball: https://registry.npmmirror.com/electron-to-chromium/-/electron-to-chromium-1.4.539.tgz}
     version: 1.4.539
@@ -4196,10 +4191,6 @@ packages:
     version: 0.14.54
     engines: {node: '>=12'}
     hasBin: true
-
-  escalade@3.1.1:
-    resolution: {integrity: sha512-k0er2gUkLf8O0zKJiAhmkTnJlTvINGv7ygDNPbeIsX/TJjGJZHuh9B2UxbsaEkmlEo9MfhrSzmhIlhRlI2GXnw==}
-    engines: {node: '>=6'}
 
   escalade@https://registry.npmmirror.com/escalade/-/escalade-3.1.1.tgz:
     resolution: {integrity: sha512-k0er2gUkLf8O0zKJiAhmkTnJlTvINGv7ygDNPbeIsX/TJjGJZHuh9B2UxbsaEkmlEo9MfhrSzmhIlhRlI2GXnw==, tarball: https://registry.npmmirror.com/escalade/-/escalade-3.1.1.tgz}
@@ -5796,8 +5787,8 @@ packages:
     version: 2.3.6
     engines: {node: '>=14'}
 
-  jake@10.9.2:
-    resolution: {integrity: sha512-2P4SQ0HrLQ+fw6llpLnOaGAvN2Zu6778SJMrCUwns4fOoG9ayrTiZk3VV8sCPkVZF8ab0zksVpS8FDY5pRCNBA==}
+  jake@10.9.4:
+    resolution: {integrity: sha512-wpHYzhxiVQL+IV05BLE2Xn34zW1S223hvjtqk0+gsPrwd/8JNLXJgZZM/iPFsYc1xyphF+6M6EvdE5E9MBGkDA==}
     engines: {node: '>=10'}
     hasBin: true
 
@@ -6679,9 +6670,6 @@ packages:
     version: 1.3.1
     engines: {node: '>= 6.13.0'}
 
-  node-releases@2.0.13:
-    resolution: {integrity: sha512-uYr7J37ae/ORWdZeQ1xxMJe3NtdmqMC/JZK+geofDrkLUApKRHPd18/TxtBOJ4A0/+uUIliorNrfYV6s1b02eQ==}
-
   node-releases@https://registry.npmmirror.com/node-releases/-/node-releases-2.0.13.tgz:
     resolution: {integrity: sha512-uYr7J37ae/ORWdZeQ1xxMJe3NtdmqMC/JZK+geofDrkLUApKRHPd18/TxtBOJ4A0/+uUIliorNrfYV6s1b02eQ==, tarball: https://registry.npmmirror.com/node-releases/-/node-releases-2.0.13.tgz}
     version: 2.0.13
@@ -7113,6 +7101,9 @@ packages:
 
   picocolors@1.1.0:
     resolution: {integrity: sha512-TQ92mBOW0l3LeMeyLV6mzy/kWr8lkd/hp3mTg7wYK7zJhuBStmGMBG0BdeDZS/dZx1IukaX6Bk11zcln25o1Aw==}
+
+  picocolors@1.1.1:
+    resolution: {integrity: sha512-xceH2snhtb5M9liqDsmEw56le376mTZkEX/jEb/RxNFyegNul7eNslCXP9FDj/Lcu0X8KEyMceP2ntpaHrDEVA==}
 
   picocolors@https://registry.npmmirror.com/picocolors/-/picocolors-0.2.1.tgz:
     resolution: {integrity: sha512-cMlDqaLEqfSaW8Z7N5Jw+lyIW869EzT73/F5lhtY9cLGoVxSXznfgfXMO0Z5K0o0Q2TkTXq+0KFsdnSe3jDViA==, tarball: https://registry.npmmirror.com/picocolors/-/picocolors-0.2.1.tgz}
@@ -9091,12 +9082,6 @@ packages:
     resolution: {integrity: sha512-PcA2tsuGSF9cnySLHTLSh2qrQiJ70mn+r+Glzxv2TWZblxsxCC52BDlZoPCsz7STd9pN7EZetkWZBAvk4cgZdQ==, tarball: https://registry.npmmirror.com/unset-value/-/unset-value-1.0.0.tgz}
     version: 1.0.0
     engines: {node: '>=0.10.0'}
-
-  update-browserslist-db@1.0.13:
-    resolution: {integrity: sha512-xebP81SNcPuNpPP3uzeW1NYXxI3rxyJzF3pD6sH4jE7o/IX+WtSpwnVU+qIsDPyk0d3hmFQ7mjqc6AtV604hbg==}
-    hasBin: true
-    peerDependencies:
-      browserslist: '>= 4.21.0'
 
   update-browserslist-db@https://registry.npmmirror.com/update-browserslist-db/-/update-browserslist-db-1.0.13.tgz:
     resolution: {integrity: sha512-xebP81SNcPuNpPP3uzeW1NYXxI3rxyJzF3pD6sH4jE7o/IX+WtSpwnVU+qIsDPyk0d3hmFQ7mjqc6AtV604hbg==, tarball: https://registry.npmmirror.com/update-browserslist-db/-/update-browserslist-db-1.0.13.tgz}
@@ -12898,7 +12883,7 @@ snapshots:
   autoprefixer@https://registry.npmmirror.com/autoprefixer/-/autoprefixer-8.6.5.tgz:
     dependencies:
       browserslist: https://registry.npmmirror.com/browserslist/-/browserslist-3.2.8.tgz
-      caniuse-lite: 1.0.30001664
+      caniuse-lite: 1.0.30001747
       normalize-range: https://registry.npmmirror.com/normalize-range/-/normalize-range-0.1.2.tgz
       num2fraction: https://registry.npmmirror.com/num2fraction/-/num2fraction-1.2.2.tgz
       postcss: https://registry.npmmirror.com/postcss/-/postcss-6.0.23.tgz
@@ -12907,7 +12892,7 @@ snapshots:
   autoprefixer@https://registry.npmmirror.com/autoprefixer/-/autoprefixer-9.8.8.tgz:
     dependencies:
       browserslist: https://registry.npmmirror.com/browserslist/-/browserslist-4.22.1.tgz
-      caniuse-lite: 1.0.30001664
+      caniuse-lite: 1.0.30001747
       normalize-range: https://registry.npmmirror.com/normalize-range/-/normalize-range-0.1.2.tgz
       num2fraction: https://registry.npmmirror.com/num2fraction/-/num2fraction-1.2.2.tgz
       picocolors: https://registry.npmmirror.com/picocolors/-/picocolors-0.2.1.tgz
@@ -13116,6 +13101,11 @@ snapshots:
     dependencies:
       balanced-match: 1.0.2
 
+  brace-expansion@2.0.2:
+    dependencies:
+      balanced-match: 1.0.2
+    optional: true
+
   brace-expansion@https://registry.npmmirror.com/brace-expansion/-/brace-expansion-1.1.11.tgz:
     dependencies:
       balanced-match: https://registry.npmmirror.com/balanced-match/-/balanced-match-1.0.2.tgz
@@ -13154,24 +13144,17 @@ snapshots:
     dependencies:
       fill-range: https://registry.npmmirror.com/fill-range/-/fill-range-7.0.1.tgz
 
-  browserslist@4.22.1:
-    dependencies:
-      caniuse-lite: 1.0.30001664
-      electron-to-chromium: 1.4.539
-      node-releases: 2.0.13
-      update-browserslist-db: 1.0.13(browserslist@4.22.1)
-
   browserslist@https://registry.npmmirror.com/browserslist/-/browserslist-3.2.8.tgz:
     dependencies:
-      caniuse-lite: 1.0.30001664
+      caniuse-lite: 1.0.30001747
       electron-to-chromium: https://registry.npmmirror.com/electron-to-chromium/-/electron-to-chromium-1.4.539.tgz
 
   browserslist@https://registry.npmmirror.com/browserslist/-/browserslist-4.22.1.tgz:
     dependencies:
-      caniuse-lite: 1.0.30001664
+      caniuse-lite: 1.0.30001747
       electron-to-chromium: https://registry.npmmirror.com/electron-to-chromium/-/electron-to-chromium-1.4.539.tgz
       node-releases: https://registry.npmmirror.com/node-releases/-/node-releases-2.0.13.tgz
-      update-browserslist-db: https://registry.npmmirror.com/update-browserslist-db/-/update-browserslist-db-1.0.13.tgz(browserslist@4.22.1)
+      update-browserslist-db: https://registry.npmmirror.com/update-browserslist-db/-/update-browserslist-db-1.0.13.tgz(browserslist@https://registry.npmmirror.com/browserslist/-/browserslist-4.22.1.tgz)
 
   buffer-alloc-unsafe@https://registry.npmmirror.com/buffer-alloc-unsafe/-/buffer-alloc-unsafe-1.1.0.tgz: {}
 
@@ -13295,11 +13278,11 @@ snapshots:
   caniuse-api@https://registry.npmmirror.com/caniuse-api/-/caniuse-api-3.0.0.tgz:
     dependencies:
       browserslist: https://registry.npmmirror.com/browserslist/-/browserslist-4.22.1.tgz
-      caniuse-lite: 1.0.30001664
+      caniuse-lite: 1.0.30001747
       lodash.memoize: https://registry.npmmirror.com/lodash.memoize/-/lodash.memoize-4.1.2.tgz
       lodash.uniq: https://registry.npmmirror.com/lodash.uniq/-/lodash.uniq-4.5.0.tgz
 
-  caniuse-lite@1.0.30001664: {}
+  caniuse-lite@1.0.30001747: {}
 
   capital-case@https://registry.npmmirror.com/capital-case/-/capital-case-1.0.4.tgz:
     dependencies:
@@ -14133,14 +14116,12 @@ snapshots:
 
   ejs@3.1.9:
     dependencies:
-      jake: 10.9.2
+      jake: 10.9.4
     optional: true
 
   ejs@https://registry.npmmirror.com/ejs/-/ejs-3.1.9.tgz:
     dependencies:
       jake: https://registry.npmmirror.com/jake/-/jake-10.8.7.tgz
-
-  electron-to-chromium@1.4.539: {}
 
   electron-to-chromium@https://registry.npmmirror.com/electron-to-chromium/-/electron-to-chromium-1.4.539.tgz: {}
 
@@ -14277,8 +14258,6 @@ snapshots:
       esbuild-windows-32: 0.14.54
       esbuild-windows-64: 0.14.54
       esbuild-windows-arm64: 0.14.54
-
-  escalade@3.1.1: {}
 
   escalade@https://registry.npmmirror.com/escalade/-/escalade-3.1.1.tgz: {}
 
@@ -15713,12 +15692,11 @@ snapshots:
     optionalDependencies:
       '@pkgjs/parseargs': 0.11.0
 
-  jake@10.9.2:
+  jake@10.9.4:
     dependencies:
       async: 3.2.6
-      chalk: 4.1.2
       filelist: 1.0.4
-      minimatch: 3.1.2
+      picocolors: 1.1.1
     optional: true
 
   jake@https://registry.npmmirror.com/jake/-/jake-10.8.7.tgz:
@@ -16360,7 +16338,7 @@ snapshots:
 
   minimatch@5.1.6:
     dependencies:
-      brace-expansion: 2.0.1
+      brace-expansion: 2.0.2
     optional: true
 
   minimatch@9.0.5:
@@ -16518,8 +16496,6 @@ snapshots:
       lodash: https://registry.npmmirror.com/lodash/-/lodash-4.17.21.tgz
 
   node-forge@https://registry.npmmirror.com/node-forge/-/node-forge-1.3.1.tgz: {}
-
-  node-releases@2.0.13: {}
 
   node-releases@https://registry.npmmirror.com/node-releases/-/node-releases-2.0.13.tgz: {}
 
@@ -16893,6 +16869,9 @@ snapshots:
   performance-now@https://registry.npmmirror.com/performance-now/-/performance-now-2.1.0.tgz: {}
 
   picocolors@1.1.0: {}
+
+  picocolors@1.1.1:
+    optional: true
 
   picocolors@https://registry.npmmirror.com/picocolors/-/picocolors-0.2.1.tgz: {}
 
@@ -18606,15 +18585,9 @@ snapshots:
       has-value: https://registry.npmmirror.com/has-value/-/has-value-0.3.1.tgz
       isobject: https://registry.npmmirror.com/isobject/-/isobject-3.0.1.tgz
 
-  update-browserslist-db@1.0.13(browserslist@4.22.1):
+  update-browserslist-db@https://registry.npmmirror.com/update-browserslist-db/-/update-browserslist-db-1.0.13.tgz(browserslist@https://registry.npmmirror.com/browserslist/-/browserslist-4.22.1.tgz):
     dependencies:
-      browserslist: 4.22.1
-      escalade: 3.1.1
-      picocolors: 1.1.0
-
-  update-browserslist-db@https://registry.npmmirror.com/update-browserslist-db/-/update-browserslist-db-1.0.13.tgz(browserslist@4.22.1):
-    dependencies:
-      browserslist: 4.22.1
+      browserslist: https://registry.npmmirror.com/browserslist/-/browserslist-4.22.1.tgz
       escalade: https://registry.npmmirror.com/escalade/-/escalade-3.1.1.tgz
       picocolors: https://registry.npmmirror.com/picocolors/-/picocolors-1.0.0.tgz
 

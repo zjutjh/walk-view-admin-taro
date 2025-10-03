@@ -7,13 +7,13 @@ export default {
     "pages/teamInfo/index",
     "pages/manage/index",
     "pages/stats/index",
-    "pages/applicationInfo/index",
+    "pages/applicationInfo/index"
   ],
   window: {
     backgroundTextStyle: "light",
     navigationBarBackgroundColor: "#fff",
     navigationBarTitleText: "WeChat",
-    navigationBarTextStyle: "black",
+    navigationBarTextStyle: "black"
   },
   lazyCodeLoading: "requiredComponents"
 };
