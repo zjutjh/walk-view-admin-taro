@@ -1,6 +1,6 @@
 <template>
   <view class="scanTeamWrap">
-    <button class="btnScan" @tap="get_scanCode">
+    <button class="btnScan" @tap="getScanCode">
       扫码签到
     </button>
     <button v-if="code!==undefined" @tap="toStatus()">
@@ -20,7 +20,8 @@ import { ref } from "vue";
 
 import { checkIn } from "../../services/services/userService";
 
-const code = ref(); // 签到码 | 团队码
+/** 签到码 || 团队码 */
+const code = ref();
 const codeType = ref();
 
 function toStatus() {
@@ -29,7 +30,7 @@ function toStatus() {
   });
 }
 
-const get_scanCode = () => {
+const getScanCode = () => {
   wx.scanCode({
     scanType: [ "barCode", "qrCode", "datamatrix", "pdf417" ],
     success: function(t) {
@@ -53,6 +54,8 @@ const teamCheckIn = async (teamData: string) => {
   codeType.value = data.type;
   const content = data.type === 1 ? data.team_id : data.code;
   code.value = content;
+
+  console.log("扫码结果", data);
   await checkIn({
     code_type: data.type,
     content: String(content)

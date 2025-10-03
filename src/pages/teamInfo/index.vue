@@ -52,6 +52,14 @@
           {{ teamStatus[teamData.team.status] }}
         </text>
       </view>
+      <view class="team-info">
+        <text class="left">
+          签到码code
+        </text>
+        <text class="right">
+          {{ teamData.team.code===undefined?"未绑定":teamData.team.code }}
+        </text>
+      </view>
       <view v-show="verify" class="team-info">
         <text class="left">
           {{ "上一点位信息" }}
@@ -104,7 +112,7 @@
     <button v-show="showBind&&teamData?.team.status==1" @tap="allMembersArrived">
       全部签到
     </button>
-    <button v-show="showBind&&teamData?.team.status==1" @tap="teamBind">
+    <button v-show="showBind&&teamData?.team.status==1" v-if="teamData?.team.code===undefined" @tap="teamBind">
       团队绑定
     </button>
     <picker
