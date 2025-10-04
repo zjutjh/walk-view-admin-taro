@@ -115,7 +115,7 @@ export interface rebuildTeamRequest {
   /** 1 是朝晖路线，2 屏峰半程，3 屏峰全程，4 莫干山半程，5 莫干山全程 */
   route: number,
   name: string,
-  slogon: string
+  slogan: string
 }
 
 const rebuildTeam = async (
@@ -134,7 +134,7 @@ const rebuildTeam = async (
         wx.showModal({
           title: "重组队伍成功",
           cancelText: "留在此页",
-          confirmText: "往回主页",
+          confirmText: "返回主页",
           success: (res) => {
             if (res.confirm) {
               Taro.navigateTo({

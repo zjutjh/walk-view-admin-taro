@@ -33,7 +33,7 @@
         placeholder="请输入新团队名"
       >
       <input
-        v-model="newSlogon"
+        v-model="newSlogan"
         class="newInfoInput"
         placeholder="请输入新口号"
       >
@@ -47,7 +47,7 @@
         secret: String(admin.getSecret()),
         route: 1 + chosenCampus,
         name: newTeamName,
-        slogon: newSlogon
+        slogan: newSlogan
       });"
     >
       提交团队
@@ -75,13 +75,23 @@ const campus = ["朝晖", "屏峰半程", "屏峰全程", "莫干山半程", "�
 const chosenCampus = ref<number>(0);
 
 const newTeamName = ref<string>("");
-const newSlogon = ref<string>("");
+const newSlogan = ref<string>("");
 
 /** 扫入个人码 */
 const addMember = () => {
   wxScan({
     success: (res) => {
       const data = JSON.parse(res);
+
+      if (!data.jwt || data.jwt === "") {
+        Taro.showModal({
+          title: "扫码错误",
+          content: "扫入的不是个人码",
+          showCancel: false
+        });
+        return;
+      }
+
       let flag = true; // 查重
       for (let i = 0; i < membersJwt.value.length; i++) {
         if (membersJwt.value[i] === data.jwt) {
@@ -110,7 +120,7 @@ const addMember = () => {
 };
 
 const rebuild = async (data: rebuildTeamRequest) => {
-  if (newTeamName.value === "" || newSlogon.value === "") {
+  if (newTeamName.value === "" || newSlogan.value === "") {
     Taro.showModal({
       title: "请填写完整信息",
       showCancel: false
