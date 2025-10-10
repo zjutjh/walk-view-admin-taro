@@ -109,10 +109,10 @@
         </view>
       </view>
     </view>
-    <button v-show="showBind&&teamData?.team.status==1" @tap="allMembersArrived">
+    <button v-show="showBind" @tap="allMembersArrived">
       全部签到
     </button>
-    <button v-show="showBind&&teamData?.team.status==1" @tap="teamBind">
+    <button v-show="showBind&&(teamData?.team.status || !teamData?.team.code)==1" @tap="teamBind">
       团队绑定
     </button>
     <picker
@@ -224,13 +224,13 @@ const changeMemberState = async (openId: string) => {
 
 const teamBind = async () => {
   wx.showModal({
-    title: "签到码",
-    content: "请扫签到码",
+    title: "扫码提示",
+    content: "接下来请扫描签到码",
     success: () => {
       wxScan({
-        success: (code) => {
+        success: async (code) => {
           const checkCodeJson = JSON.parse(code); // 签到码json
-          bindTeamCode({
+          await bindTeamCode({
             team_id: Number.parseInt(router?.params.code as string),
             code: String(checkCodeJson.code),
             type: checkCodeJson.type
