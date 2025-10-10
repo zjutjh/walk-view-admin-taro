@@ -54,10 +54,10 @@
       </view>
       <view class="team-info">
         <text class="left">
-          签到码code
+          签到码
         </text>
-        <text class="right">
-          {{ teamData.team.code===undefined?"未绑定":teamData.team.code }}
+        <text class="right" style="font-size: 15px;">
+          {{ teamData.team.code===undefined?"未绑定" : teamData.team.code }}
         </text>
       </view>
       <view v-show="verify" class="team-info">
@@ -112,7 +112,7 @@
     <button v-show="showBind&&teamData?.team.status==1" @tap="allMembersArrived">
       全部签到
     </button>
-    <button v-show="showBind&&teamData?.team.status==1" v-if="teamData?.team.code===undefined" @tap="teamBind">
+    <button v-show="showBind&&teamData?.team.status==1" @tap="teamBind">
       团队绑定
     </button>
     <picker
@@ -163,7 +163,7 @@ const initData = async () => {
   if (!resdata) {
     await Taro.showModal({
       title: "获取团队信息失败!",
-      content: "权限不够或者登录有误!",
+      content: "团队号码不存在,或权限不足!",
       showCancel: false
     });
     await Taro.navigateTo({
