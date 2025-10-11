@@ -15,7 +15,6 @@ const jwt = useJwtStore();
 const admin = useAdminStore();
 
 const saveLoginData = (resAdmin: any) => {
-  console.log(resAdmin);
   admin.setAccount(resAdmin.account);
   admin.setAdminId(resAdmin.admin_id);
   admin.setName(resAdmin.name);
@@ -61,14 +60,12 @@ async function loginByAccount(
             ...data,
             code: res.code
           }
-        }).then((res) => {
-          if (res.data.data.jwt) {
-            jwt.setJwt(res.data.data.jwt);
+        }).then((response) => {
+          if (response.data.data.jwt) {
+            jwt.setJwt(response.data.data.jwt);
           }
         });
         code.setCode(res.code);
-      } else {
-        console.log("绑定自动登录失败！" + res.errMsg);
       }
     }
   });
@@ -82,7 +79,6 @@ async function autoLogin(): Promise<boolean> {
     title: "自动登录中",
     mask: true
   });
-  const code = useCodeStore();
   let resData;
   await Taro.request({
     method: "POST",
@@ -100,7 +96,6 @@ async function autoLogin(): Promise<boolean> {
   if (resData.data.msg === "ok") {
     jwt.setJwt(resData.data.data.jwt);
     saveLoginData(resData.data.data.admin);
-    console.log("auto login success");
 
     // 重制code登录凭证
     Taro.login({

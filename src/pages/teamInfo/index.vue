@@ -57,7 +57,7 @@
           签到码
         </text>
         <text class="right" style="font-size: 15px;">
-          {{ teamData.team.code===undefined?"未绑定" : teamData.team.code }}
+          {{ teamData.team.code===undefined?"未绑定" : "已绑定" }}
         </text>
       </view>
       <view v-show="verify" class="team-info">
